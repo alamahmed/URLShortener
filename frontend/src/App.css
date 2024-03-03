@@ -1,0 +1,121 @@
+:root {
+  --primary-color: #33767b;
+  --secondary-color: #d66d50;
+  --bg-color: #f9f8f8;
+
+  --border-size: 10px;
+  --box-shadow: rgba(128, 128, 128, 0.5);
+
+  --btn-width: 21%;
+  --btn-height: 68px;
+
+  --input-width: 75%;
+  --input-focus-border: -webkit-focus-ring-color;
+  --input-height: 62px;
+
+  --tab-sub-container-width: 80%;
+  --mob-sub-container-width: 90%;
+}
+
+.displayFlex {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.border {
+  border: 2px solid var(--primary-color);
+}
+
+body {
+  background-color: var(--bg-color);
+}
+
+.container {
+  width: 100%;
+  height: 80vh;
+  align-items: center;
+}
+
+.main-heading {
+  color: var(--primary-color);
+  font-weight: 800;
+  text-align: center;
+}
+
+.sub-container {
+  background-color: white;
+  width: 70%;
+  height: 60%;
+  flex-direction: column;
+  border-radius: var(--border-size);
+  box-shadow: var(--box-shadow) 2px 2px 7px 1px;
+}
+
+.heading {
+  color: var(--secondary-color);
+  font-weight: 800;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-align: center;
+}
+
+.input-container {
+  flex-direction: row;
+}
+
+.input-sub-container {
+  width: 80%;
+  height: 3em;
+}
+
+.input {
+  font-size: 16px;
+  font-size: max(16px, 1em);
+  border: none;
+  outline: 2px solid var(--primary-color);
+  border-top-left-radius: var(--border-size);
+  border-bottom-left-radius: var(--border-size);
+  padding-left: 0.7em;
+  width: var(--input-width);
+  height: var(--input-height);
+}
+
+input[type='text']:focus {
+  height: var(--input-height);
+  outline: 2px solid var(--secondary-color);
+}
+
+.button {
+  transition: all .4s ease;
+  cursor: pointer;
+  width: var(--btn-width);
+  height: var(--btn-height);
+  background-color: white;
+  border-top-right-radius: var(--border-size);
+  border-bottom-right-radius: var(--border-size);
+  font-weight: 800;
+  font-size: 1em;
+  text-transform: uppercase;
+}
+
+.button:hover {
+  border-color: var(--secondary-color);
+  background: var(--secondary-color);
+  color: white;
+}
+
+
+
+@media only screen and (max-width: 600px) {
+
+  .sub-container {
+    width: var(--mob-sub-container-width);
+  }
+}
+
+@media only screen and (max-width: 900px) and (min-width: 600px) {
+
+  .sub-container {
+    width: var(--tab-sub-container-width);
+  }
+}
