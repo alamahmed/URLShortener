@@ -1,4 +1,4 @@
-const backendURL = 'https://short-fkjp.onrender.com/';
+const backendURL = 'https://short-fkjp.onrender.com';
 const getshortenedURL = (url) => {
     console.log(url);
 
