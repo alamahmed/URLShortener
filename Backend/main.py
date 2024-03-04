@@ -7,7 +7,7 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 from fastapi import FastAPI
-from starlette.middleware.cors import CORSMiddleware
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from starlette.responses import RedirectResponse
 
@@ -25,19 +25,13 @@ def hashGen( url ):
     hashedURL = hashedURL.hexdigest()
     return hashedURL
 
-# Remove CORS Error
-origins = [
-    'https://alamahmed.github.io/',
-    'https://alamahmed.github.io/URLShortner/',
-]
-
 # Allow origin
 app.add_middleware(
     CORSMiddleware,
-    allow_origins = origins,
+    allow_origins = [ '*' ],
     allow_credentials = True,
-    allow_methods = [ "*" ],
-    allow_headers = [ "*" ],
+    allow_methods = [ '*' ],
+    allow_headers = [ '*' ],
 )
 
 # Allow to pass string
