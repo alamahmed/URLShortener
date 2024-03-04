@@ -46,7 +46,8 @@ body {
 .sub-container {
   background-color: white;
   width: 70%;
-  height: 60%;
+  height: fit-content;
+  padding: 6rem 0;
   flex-direction: column;
   border-radius: var(--border-size);
   box-shadow: var(--box-shadow) 2px 2px 7px 1px;
