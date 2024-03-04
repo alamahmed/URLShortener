@@ -1,4 +1,4 @@
-fastapi==0.110.0
+fastapi==0.103.2
 firebase_admin==6.4.0
 HTMLParser==0.0.2
 pydantic==1.10.12
