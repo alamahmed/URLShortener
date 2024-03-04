@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/URLShortner/static/css/main.9fa41f04.css",
-    "main.js": "/URLShortner/static/js/main.2252391f.js",
+    "main.js": "/URLShortner/static/js/main.94068d63.js",
     "index.html": "/URLShortner/index.html",
     "main.9fa41f04.css.map": "/URLShortner/static/css/main.9fa41f04.css.map",
-    "main.2252391f.js.map": "/URLShortner/static/js/main.2252391f.js.map"
+    "main.94068d63.js.map": "/URLShortner/static/js/main.94068d63.js.map"
   },
   "entrypoints": [
     "static/css/main.9fa41f04.css",
-    "static/js/main.2252391f.js"
+    "static/js/main.94068d63.js"
   ]
 }
