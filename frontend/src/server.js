@@ -5,7 +5,7 @@ const getshortenedURL = (url) => {
     const xhr = new XMLHttpRequest();
 
     // Open a connection to the server
-    xhr.open('POST', 'https://short-fkjp.onrender.com', true);
+    xhr.open('POST', backendURL, true);
 
     // Set the request headers
     xhr.setRequestHeader('Content-Type', 'application/json');
