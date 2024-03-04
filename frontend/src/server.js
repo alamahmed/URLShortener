@@ -1,4 +1,4 @@
-const backendURL = 'http://localHost:8000';
+const backendURL = 'https://test-ebm4.onrender.com';
 const getshortenedURL = (url) => {
     console.log(url);
 
