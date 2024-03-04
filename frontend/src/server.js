@@ -1,12 +1,11 @@
-const backendURL = 'https://short-fkjp.onrender.com';
+const backendURL = 'https://short-fkjp.onrender.com/';
 const getshortenedURL = (url) => {
-    console.log(url);
 
     // Create a new XMLHttpRequest object
     const xhr = new XMLHttpRequest();
 
     // Open a connection to the server
-    xhr.open('POST', backendURL, true);
+    xhr.open('POST', 'https://short-fkjp.onrender.com', true);
 
     // Set the request headers
     xhr.setRequestHeader('Content-Type', 'application/json');
@@ -19,7 +18,7 @@ const getshortenedURL = (url) => {
             let response = JSON.parse(xhr.responseText);
 
             let displayData = document.getElementById('display-short-url');
-            displayData.innerHTML = backendURL + '/' + response.URL;
+            displayData.innerHTML = backendURL + response.URL;
 
             return response;
         }
