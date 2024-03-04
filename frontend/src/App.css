@@ -104,7 +104,9 @@ input[type='text']:focus {
   color: white;
 }
 
-
+#display-short-url {
+  text-align: center;
+}
 
 @media only screen and (max-width: 600px) {
 

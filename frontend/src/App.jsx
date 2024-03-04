@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { getshortenedURL } from './server.js'
 import './App.css';
 
 const App = () => {
+  const [input, updateInput] = useState('');
+
   return (
     <div className='container displayFlex'>
       <h1 className='main-heading'>
@@ -12,7 +15,6 @@ const App = () => {
           Paste Your Link Here
         </h1>
         <form
-          action='../backend/main.py'
           className='form'
         >
           <section className='input-container displayFlex'>
@@ -20,14 +22,18 @@ const App = () => {
               <input
                 className='input'
                 type='text'
-                id='fname'
+                onChange={(e) => {
+                  updateInput(e.target.value);
+                }}
                 placeholder='Your Link'
-                name='fname'
+                id='url'
               />
               <button
-                onSubmit={() => {
-
+                onClick={(e) => {
+                  e.preventDefault();
+                  getshortenedURL(input);
                 }}
+                type='submit'
                 className='button border'
               >
                 Shorten URL
@@ -36,7 +42,13 @@ const App = () => {
           </section>
         </form>
       </div>
-    </div >
+      <div>
+        <h1 className='main-heading'>
+          Shortened URL
+        </h1>
+        <pre id='display-short-url'></pre>
+      </div>
+    </div>
   )
 }
 

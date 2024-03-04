@@ -59,5 +59,9 @@ async def uploadItem( URL: URL ):
 @app.get( '/{hash}')
 async def redirect( hash:str ):
     data = doc_ref.get()
-    response = RedirectResponse( url = data.to_dict()[ hash ] )
-    return response
+    url = data.to_dict()[ hash ]
+    if(url):
+        response = RedirectResponse( url = data.to_dict()[ hash ] )
+        return response
+    else:
+        return { 'message': 'Please enter a valid url' }
