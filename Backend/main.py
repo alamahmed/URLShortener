@@ -27,7 +27,6 @@ def hashGen( url ):
 
 # Remove CORS Error
 origins = [
-    'https://alamahmed.github.io/',
     'https://alamahmed.github.io/URLShortner/',
     'http://localhost',
     'http://localhost:5500',
