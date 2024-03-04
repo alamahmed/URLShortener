@@ -8,6 +8,8 @@
 /backend/urlshortner.json
 /backend/myenv
 /myenv
+/backend/venv
+/venv
 
 # testing
 /coverage
