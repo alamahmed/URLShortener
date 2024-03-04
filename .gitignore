@@ -14,9 +14,6 @@
 
 # misc
 .DS_Store
-/frontend/.env
-/backend/urlshortner.json
-/urlshortner.json
 .env
 .env.local
 .env.development.local
