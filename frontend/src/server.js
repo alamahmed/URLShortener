@@ -14,10 +14,10 @@ const getshortenedURL = (url) => {
     xhr.send(JSON.stringify({ 'url': url }));
 
     xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4 && xhr.status == 200) {
+        if (xhr.readyState === 4 && xhr.status === 200) {
             let response = JSON.parse(xhr.responseText);
 
-            let displayData = document.getElementById('display-short-url');
+            let displayData = document.getElementById('display_short_url');
             displayData.innerHTML = backendURL + response.URL;
 
             return response;
