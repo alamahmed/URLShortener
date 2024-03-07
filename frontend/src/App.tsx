@@ -1,11 +1,11 @@
 import '@mantine/core/styles.css';
-import MainPage from './pages/MainPage/MainPage'
+import Home from './pages/Home/Home'
 // import classes from './App.module.css'
 
 const App = () => {
 
   return (
-    <MainPage />
+    <Home />
   )
 }
 

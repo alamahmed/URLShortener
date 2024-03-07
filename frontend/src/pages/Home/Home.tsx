@@ -2,7 +2,7 @@ import { getshortenedURL } from '../../server.js'
 import { useState } from 'react'
 import { Container, Grid, Title, Button, Flex, Card, Text, CloseButton } from '@mantine/core'
 import { Input } from '@mantine/core'
-import classes from './MainPage.module.css'
+import classes from './Home.module.css'
 
 const MainPage = () => {
     const [value, setValue] = useState('')
