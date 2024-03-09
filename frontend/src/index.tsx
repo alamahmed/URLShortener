@@ -3,22 +3,22 @@ import { createTheme, MantineProvider } from '@mantine/core';
 import App from './App'
 import '@mantine/core/styles.css';
 import '@mantine/carousel/styles.css';
-// import classes from './index.module.css'
+import classes from './index.module.css'
 
 const theme = createTheme({
   colors: {
     primaryColors:
       [
-        "#33767b",
-        "#33767b",
-        "#33767b",
-        "#33767b",
-        "#33767b",
-        "#33767b",
-        "#33767b",
-        "#33767b",
-        "#33767b",
-        "#33767b",
+        "#af99ff",
+        "#af99ff",
+        "#af99ff",
+        "#af99ff",
+        "#af99ff",
+        "#af99ff",
+        "#af99ff",
+        "#af99ff",
+        "#af99ff",
+        "#af99ff",
       ],
   },
   primaryColor: "primaryColors",

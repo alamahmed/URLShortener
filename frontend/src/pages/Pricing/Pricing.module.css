@@ -1,36 +1,19 @@
-:root {
-    --primary-color: #af99ff;
-    --heading-color: #ffffff;
-}
-
-.main_container {
-    background-color: #fbfbfb;
-}
-
 .main_heading {
-    color: var(--heading-color);
+    /* color: #33767b; */
+    color: white;
     font-weight: 800;
 }
 
 .sub_heading {
-    color: var(--heading-color);
+    color: white;
+    /* color: #d66d50; */
     font-weight: 800;
 }
 
-.input {
-    transition: none;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    height: 50px;
-
-    &:focus-within {
-        border-color: var(--primary-color);
-    }
-}
-
 .gradient_background {
+    /* width: 95vw; */
     width: 100%;
-    background-color: var(--primary-color);
+    background-color: #af99ff;
     background-image:
         radial-gradient(at 48% 14%, hsla(207, 71%, 65%, 1) 0px, transparent 50%),
         radial-gradient(at 16% 38%, hsla(299, 83%, 60%, 1) 0px, transparent 50%),
@@ -40,13 +23,4 @@
         radial-gradient(at 14% 81%, hsla(1, 75%, 73%, 1) 0px, transparent 50%),
         radial-gradient(at 36% 71%, hsla(21, 63%, 66%, 1) 0px, transparent 50%);
     border-radius: 30px;
-}
-
-.shortened_URL {
-    color: var(--heading-color);
-}
-
-.link {
-    color: black;
-    text-decoration: none;
 }
