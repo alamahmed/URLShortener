@@ -124,7 +124,6 @@ const Home = () => {
                                 id={'display_short_url'}
                                 className={classes.shortened_URL}
                             >
-                                /var/folders/sg/jyhjcfjn10qgv8wl690b0hlr0000gn/T/com.apple.useractivityd/shared-pasteboard/items/2004FF0A-468F-448F-BFD7-62C72960619C/d1af07beb3b627a2cf0fc9315fd05cdd3f3ddeb0.rtfd
                             </Text>
                         </Flex>
                     </Card>
@@ -169,7 +168,6 @@ const Home = () => {
                 </Flex>
                 <Flex
                     direction={'column'}
-                    // justify={'center'}
                     pb={'xl'}
                     align={'center'}
                 >
@@ -180,15 +178,9 @@ const Home = () => {
                     >
                         Buy Premium Membership
                     </Button>
-                    <Link
-                        to={'/'}
-                        className={classes.link}
-                    >
-                        Already Have an account?
-                    </Link>
                 </Flex>
-            </Container >
-        </div >
+            </Container>
+        </div>
     )
 }
 

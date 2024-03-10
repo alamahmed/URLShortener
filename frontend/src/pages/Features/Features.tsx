@@ -1,13 +1,7 @@
-import { getshortenedURL } from '../../server.js'
-import { useState } from 'react'
-import { Container, Title, Button, Flex, Card, Text, CloseButton } from '@mantine/core'
-import { Input } from '@mantine/core'
-import { useDisclosure } from '@mantine/hooks'
+import { Container } from '@mantine/core'
 import classes from './Features.module.css'
 
 const Features = () => {
-    const [value, setValue] = useState('')
-    const [loading, { toggle }] = useDisclosure();
 
     return (
         <Container
