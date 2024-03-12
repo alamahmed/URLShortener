@@ -1,0 +1,22 @@
+.custom_switch_text {
+    color: black;
+    padding: 20px;
+    font-weight: 700;
+    background-color: white;
+}
+
+.active {
+    color: white;
+    background-color: var(--mantine-primary-color-1);
+}
+
+.Card {
+    border-color: var(--mantine-primary-color-1);
+    transition: ease-in-out 100ms;
+}
+
+.Card:hover {
+    box-shadow: 3px 7px 7px 1px #c8c8c8;
+    background-color: var(--mantine-primary-color-1);
+    color: white;
+}

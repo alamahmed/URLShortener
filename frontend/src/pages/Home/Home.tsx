@@ -1,21 +1,48 @@
 import { getshortenedURL } from '../../server.js'
 import { useState } from 'react'
-import { Container, Title, Button, Flex, Card, Text, CloseButton, Divider, Grid } from '@mantine/core'
-import { Link } from 'react-router-dom'
+import { Container, Title, Button, Flex, Card, Text, CloseButton, Grid, Divider } from '@mantine/core'
+import { IconLink, IconId, IconHeart, IconActivity, IconTimeline, IconUserPlus, IconDashboard } from '@tabler/icons-react'
 import { Input } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
-import { IconLink, IconId, IconHeart, IconActivity, IconTimeline, IconUserPlus, IconDashboard } from '@tabler/icons-react'
 import classes from './Home.module.css'
 
 
 const benefits = [
-    { icon: <IconLink />, heading: 'Custom Short Links', description: 'Create Branded links that are easy to remember and pronounce' },
-    { icon: <IconId />, heading: 'Branded links', description: 'Create links with your own domain' },
-    { icon: <IconHeart />, heading: 'Link retargeting', description: 'Add pixels from Facebook, Google, Linkedin, X, and more' },
-    { icon: <IconActivity />, heading: 'Link health monitoring', description: 'Set up automatic monitoring for broken links' },
-    { icon: <IconTimeline />, heading: 'Custom splash pages', description: 'Create a page that matches your brand' },
-    { icon: <IconUserPlus />, heading: 'Team permissions', description: 'Invite your team members to collaborate on your links' },
-    { icon: <IconDashboard />, heading: 'Dashboard', description: 'Get access to your History of previously Created links' },
+    {
+        icon: <IconLink />,
+        heading: 'Custom Short Links',
+        description: 'Create Branded links that are easy to remember and pronounce'
+    },
+    {
+        icon: <IconId />,
+        heading: 'Branded links',
+        description: 'Create links with your own domain'
+    },
+    {
+        icon: <IconHeart />,
+        heading: 'Link retargeting',
+        description: 'Add pixels from Facebook, Google, Linkedin, X, and more'
+    },
+    {
+        icon: <IconActivity />,
+        heading: 'Link health monitoring',
+        description: 'Set up automatic monitoring for broken links'
+    },
+    {
+        icon: <IconTimeline />,
+        heading: 'Custom splash pages',
+        description: 'Create a page that matches your brand'
+    },
+    {
+        icon: <IconUserPlus />,
+        heading: 'Team permissions',
+        description: 'Invite your team members to collaborate on your links'
+    },
+    {
+        icon: <IconDashboard />,
+        heading: 'Dashboard',
+        description: 'Get access to your History of previously Created links'
+    },
 ]
 
 
@@ -128,12 +155,20 @@ const Home = () => {
                         </Flex>
                     </Card>
                 </Flex>
-                <Divider color={'gray'} size={'sm'} my={'lg'} />
+                <Divider
+                    mt={50}
+                    p={0}
+                    color={'dimmed'}
+                />
                 <Flex
                     direction={'column'}
                 >
-                    <Title>
-                        Membership Benefits
+                    <Title
+                        ta={'center'}
+                        mt={'md'}
+                        c={'var(--mantine-primary-color-1)'}
+                    >
+                        Benefits
                     </Title>
                     <Grid
                         my={'xl'}
@@ -148,7 +183,7 @@ const Home = () => {
                                         p={'xl'}
                                         radius={'md'}
                                         mih={'300px'}
-                                    // h={'100%'}
+                                        className={classes.Card}
                                     >
                                         {items.icon}
                                         <Title
@@ -157,7 +192,7 @@ const Home = () => {
                                         >
                                             {items.heading}
                                         </Title>
-                                        <Text c={'dimmed'}>
+                                        <Text>
                                             {items.description}
                                         </Text>
                                     </Card>

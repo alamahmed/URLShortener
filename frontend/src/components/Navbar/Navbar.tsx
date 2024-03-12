@@ -23,7 +23,7 @@ const Navbar = () => {
     const [page, changePage] = useState('');
 
     const data = [
-        { link: '/Features', name: 'Features' },
+        { link: '/', name: 'Home' },
         { link: '/Pricing', name: 'Pricing' },
         { link: '/Dashboard', name: 'Dashboard' },
     ]
@@ -54,6 +54,7 @@ const Navbar = () => {
                         >
                             <Text
                                 fw={800}
+                                className={classes.text}
                             >
                                 URL Shortner
                             </Text>
@@ -75,6 +76,8 @@ const Navbar = () => {
                                         >
                                             <Text
                                                 pr={'20px'}
+                                                fw={500}
+                                                className={classes.text}
                                             >
                                                 {items.name}
                                             </Text>
@@ -120,28 +123,15 @@ const Navbar = () => {
                     hiddenFrom={'sm'}
                     zIndex={1000000}
                 >
-
-                    <Divider my={'sm'} />
-                    <Flex
-                        justify={'right'}
-                    >
-                        <Link
-                            to='/'
-                            className={classes.link}
-                            onClick={() => { closeDrawer() }}
-                        >
-                            <Text fw={800}>
-                                Home
-                            </Text>
-                        </Link>
-                    </Flex>
-                    <Divider my={'sm'} />
+                    <Divider
+                        my={'sm'}
+                    />
                     {data.map((items) => {
                         return (
                             <Flex justify={'right'}>
                                 <Link
                                     to={items.link}
-                                    className={classes.link}
+                                    className={`${classes.link} ${classes.text}`}
                                     onClick={() => { closeDrawer() }}
                                 >
                                     {items.name}
