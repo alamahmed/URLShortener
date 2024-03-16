@@ -1,0 +1,13 @@
+.main_container {
+    width: 100%;
+    background-color: #fbfbfb;
+}
+
+.graph {
+    padding: 10px 20px 10px 0;
+    height: 50vh;
+    margin-top: var(--mantine-spacing-lg);
+    background-color: var(--mantine-primary-color-light);
+    border-radius: var(--mantine-radius-lg);
+    border: 1px solid var(--mantine-primary-color-1);
+}

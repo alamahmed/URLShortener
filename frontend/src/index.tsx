@@ -1,24 +1,25 @@
 import ReactDOM from 'react-dom/client'
+import React from 'react';
 import { createTheme, MantineProvider } from '@mantine/core';
 import App from './App'
 import '@mantine/core/styles.css';
 import '@mantine/carousel/styles.css';
-import classes from './index.module.css'
+import './index.css'
 
 const theme = createTheme({
   colors: {
     primaryColors:
       [
-        "#af99ff",
-        "#af99ff",
-        "#af99ff",
-        "#af99ff",
-        "#af99ff",
-        "#af99ff",
-        "#af99ff",
-        "#af99ff",
-        "#af99ff",
-        "#af99ff",
+        "#8664FE",
+        "#8664FE",
+        "#8664FE",
+        "#8664FE",
+        "#8664FE",
+        "#8664FE",
+        "#8664FE",
+        "#8664FE",
+        "#8664FE",
+        "#8664FE",
       ],
   },
   primaryColor: "primaryColors",
@@ -28,7 +29,9 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 )
 root.render(
-  <MantineProvider theme={theme}>
-    <App />
-  </MantineProvider>
+  <React.StrictMode>
+    <MantineProvider theme={theme}>
+      <App />
+    </MantineProvider>
+  </React.StrictMode>
 )

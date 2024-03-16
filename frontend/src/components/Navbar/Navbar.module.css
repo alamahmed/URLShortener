@@ -6,3 +6,16 @@
     text-decoration: none;
     color: black;
 }
+
+.button {
+    border-radius: var(--mantine-radius-lg);
+    --button-hover: #4B1AFD;
+}
+
+.text {
+    color: var(--mantine-primary-color-1)
+}
+
+.text:hover {
+    color: #4D1AFD
+}
