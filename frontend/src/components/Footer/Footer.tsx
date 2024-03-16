@@ -1,6 +1,7 @@
 import { Text, Container, ActionIcon, Group } from '@mantine/core'
 import { IconBrandTwitter, IconBrandYoutube, IconBrandInstagram } from '@tabler/icons-react'
 import classes from './Footer.module.css'
+import { Outlet, useLocation } from 'react-router-dom';
 
 const data = [
     {
@@ -47,41 +48,46 @@ const Footer = () => {
         ));
 
         return (
-            <div className={classes.wrapper} key={group.title}>
-                <Text className={classes.title}>{group.title}</Text>
-                {links}
-            </div>
+            <>
+                <div className={classes.wrapper} key={group.title}>
+                    <Text className={classes.title}>{group.title}</Text>
+                    {links}
+                </div>
+            </>
         );
     });
 
     return (
-        <footer className={classes.footer}>
-            <Container className={classes.inner}>
-                <div className={classes.logo}>
-                    <Text size={'xs'} c={'dimmed'} className={classes.description}>
-                        Build fully functional accessible web applications faster than ever
+        <>
+            <Outlet />
+            <footer id='footer' className={classes.footer}>
+                <Container className={classes.inner}>
+                    <div className={classes.logo}>
+                        <Text size={'xs'} c={'dimmed'} className={classes.description}>
+                            Build fully functional accessible web applications faster than ever
+                        </Text>
+                    </div>
+                    <div className={classes.groups}>{groups}</div>
+                </Container>
+                <Container className={classes.afterFooter}>
+                    <Text c={'dimmed'} size={'sm'}>
+                        © 2024 URL Shortener All rights reserved.
                     </Text>
-                </div>
-                <div className={classes.groups}>{groups}</div>
-            </Container>
-            <Container className={classes.afterFooter}>
-                <Text c={'dimmed'} size={'sm'}>
-                    © 2024 URL Shortner All rights reserved to Ahmed Alam.
-                </Text>
 
-                <Group gap={0} className={classes.social} justify={'flex-end'} wrap={'nowrap'}>
-                    <ActionIcon size={'lg'} color={'gray'} variant={'subtle'}>
-                        <IconBrandTwitter style={{ width: 18, height: 18 }} stroke={1.5} />
-                    </ActionIcon>
-                    <ActionIcon size={'lg'} color={'gray'} variant={'subtle'}>
-                        <IconBrandYoutube style={{ width: 18, height: 18 }} stroke={1.5} />
-                    </ActionIcon>
-                    <ActionIcon size={'lg'} color={'gray'} variant={'subtle'}>
-                        <IconBrandInstagram style={{ width: 18, height: 18 }} stroke={1.5} />
-                    </ActionIcon>
-                </Group>
-            </Container>
-        </footer>
+                    <Group gap={0} className={classes.social} justify={'flex-end'} wrap={'nowrap'}>
+                        <ActionIcon size={'lg'} color={'gray'} variant={'subtle'}>
+                            <IconBrandTwitter style={{ width: 18, height: 18 }} stroke={1.5} />
+                        </ActionIcon>
+                        <ActionIcon size={'lg'} color={'gray'} variant={'subtle'}>
+                            <IconBrandYoutube style={{ width: 18, height: 18 }} stroke={1.5} />
+                        </ActionIcon>
+                        <ActionIcon size={'lg'} color={'gray'} variant={'subtle'}>
+                            <IconBrandInstagram style={{ width: 18, height: 18 }} stroke={1.5} />
+                        </ActionIcon>
+                    </Group>
+                </Container>
+            </footer>
+        </>
     );
 }
 

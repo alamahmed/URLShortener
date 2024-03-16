@@ -69,7 +69,7 @@ const Home = () => {
                         className={classes.main_heading}
                         ta={'center'}
                     >
-                        URL Shortner
+                        URL Shortener
                     </Title>
                     <Card
                         py={60}

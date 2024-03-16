@@ -144,7 +144,7 @@ const History = () => {
                 <Title
                     fw={800}
                 >
-                    URL SHORTNER HISTORY
+                    URL SHORTENER HISTORY
                 </Title>
                 <Button
                     variant={'light'}

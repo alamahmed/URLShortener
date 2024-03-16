@@ -24,8 +24,8 @@ const Navbar = () => {
 
     const data = [
         { link: '/', name: 'Home' },
-        { link: '/Pricing', name: 'Pricing' },
-        { link: '/Dashboard', name: 'Dashboard' },
+        { link: '/pricing', name: 'Pricing' },
+        { link: '/dashboard', name: 'Dashboard' },
     ]
 
     return (
@@ -59,7 +59,7 @@ const Navbar = () => {
                                     fw={800}
                                     className={classes.text}
                                 >
-                                    URL Shortner
+                                    URL Shortener
                                 </Text>
                             </Link>
                             <Group
@@ -122,7 +122,7 @@ const Navbar = () => {
                         onClose={closeDrawer}
                         size={'100%'}
                         padding={'md'}
-                        title={'URL Shortner'}
+                        title={'URL Shortener'}
                         hiddenFrom={'sm'}
                         zIndex={1000000}
                     >

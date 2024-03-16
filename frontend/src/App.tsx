@@ -9,50 +9,54 @@ import Overview from './components/Overview/Overview'
 import Settings from './components/Settings/Settings'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Profile from './components/Profile/Profile'
+import { Flex } from '@mantine/core'
 // import classes from './App.module.css'
 
 const App = () => {
   return (
     <BrowserRouter>
       <Navbar />
-      <Routes>
-        <Route path='/' element={<Home />}></Route>
-        <Route path='/Pricing' element={<Pricing />}></Route>
-        <Route path='/Dashboard' element={<Dashboard />}>
+      <Routes >
+
+        <Route path='/dashboard' element={<Dashboard />}>
           <Route
-            path='/Dashboard/'
+
+            path=''
             element={
               <Overview />
             }
           />
           <Route
-            path='/Dashboard/Profile'
+            path='profile'
             element={
               <Profile />
             }
           />
           <Route
-            path='/Dashboard/Security'
+            path='security'
             element={
               <Home />
             }
           />
           <Route
-            path='/Dashboard/Analytics'
+            path='analytics'
             element={
               <Home />
             }
           />
           <Route
-            path='/Dashboard/Settings'
+            path='settings'
             element={
               <Settings />
             }
           />
         </Route>
+        <Route element={<Footer />}>
+          <Route path='/' element={<Home />} />
+          <Route path='/pricing' element={<Pricing />} />
+        </Route>
       </Routes>
-      <Footer />
-    </BrowserRouter>
+    </BrowserRouter >
   )
 }
 

@@ -40,7 +40,7 @@ const AuthenticationForm = (props: { page: string }) => {
                 size={'lg'}
                 fw={500}
             >
-                Welcome to URL Shortner, {type} with
+                Welcome to URL Shortener, {type} with
             </Text>
 
             <form onSubmit={form.onSubmit(() => { })}>

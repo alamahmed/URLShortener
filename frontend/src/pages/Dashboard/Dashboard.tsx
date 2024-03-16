@@ -12,10 +12,10 @@ import { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
 const mockdata = [
-    { icon: IconHome2, label: 'Overview', link: '/Dashboard/' },
-    { icon: IconUser, label: 'Profile', link: '/Dashboard/Profile' },
-    { icon: IconFingerprint, label: 'Security', link: '/Dashboard/Security' },
-    { icon: IconDeviceDesktopAnalytics, label: 'Analytics', link: '/Dashboard/Analytics' },
+    { icon: IconHome2, label: 'Overview', link: '/dashboard' },
+    { icon: IconUser, label: 'Profile', link: '/dashboard/profile' },
+    { icon: IconFingerprint, label: 'Security', link: '/dashboard/security' },
+    { icon: IconDeviceDesktopAnalytics, label: 'Analytics', link: '/dashboard/analytics' },
 ];
 
 let noOfMockData = mockdata.length;
@@ -80,7 +80,7 @@ const Dashboard = () => {
                     <nav className={classes.sidebar_bottom}>
                         <NavbarLink
                             key={'Settings'}
-                            link={'/Dashboard/Settings'}
+                            link={'/dashboard/settings'}
                             active={noOfMockData === active}
                             onClick={() => setActive(noOfMockData)}
                             icon={IconSettings}
@@ -88,7 +88,7 @@ const Dashboard = () => {
                         />
                         <NavbarLink
                             key={'Logout'}
-                            link={'/Dashboard/Logout'}
+                            link={'/dashboard/logout'}
                             active={noOfMockData + 1 === active}
                             onClick={() => setActive(noOfMockData + 1)}
                             icon={IconLogout}

@@ -17,7 +17,7 @@ app = firebase_admin.initialize_app( cred )
 db = firestore.client()
 app = FastAPI()
 
-doc_ref = db.collection( 'URLShortner' ).document( 'URL' )
+doc_ref = db.collection( 'URLShortener' ).document( 'URL' )
 
 # Function to generate HashURL
 def hashGen( url ):
