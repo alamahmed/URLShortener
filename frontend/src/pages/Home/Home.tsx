@@ -45,10 +45,9 @@ const benefits = [
     },
 ]
 
-
 const Home = () => {
     const [value, setValue] = useState('')
-    const [loading, { toggle }] = useDisclosure();
+    const [loading, setLoading] = useState(false);
 
 
     return (
@@ -129,8 +128,10 @@ const Home = () => {
                                         },
                                     }}
                                     onClick={(e) => {
-                                        getshortenedURL(value)
-
+                                        // toggle();
+                                        e.preventDefault();
+                                        setLoading(true);
+                                        getshortenedURL(value, setLoading);
                                     }}
                                 >
                                     Shorten URL
@@ -200,19 +201,6 @@ const Home = () => {
                             );
                         })}
                     </Grid>
-                </Flex>
-                <Flex
-                    direction={'column'}
-                    pb={'xl'}
-                    align={'center'}
-                >
-                    <Button
-                        color={'darkgray'}
-                        my={'lg'}
-                        radius={'lg'}
-                    >
-                        Buy Premium Membership
-                    </Button>
                 </Flex>
             </Container>
         </div>

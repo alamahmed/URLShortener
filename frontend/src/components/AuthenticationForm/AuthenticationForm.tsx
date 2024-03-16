@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { upperFirst } from '@mantine/hooks'
 import { useForm } from '@mantine/form'
 import {
     TextInput,
@@ -90,6 +89,9 @@ const AuthenticationForm = (props: { page: string }) => {
                         type={'button'}
                         c={'dimmed'}
                         onClick={() => {
+                            form.values.email = '';
+                            form.values.name = '';
+                            form.values.password = '';
                             type === 'register' ?
                                 toggle('login')
                                 :
@@ -99,10 +101,23 @@ const AuthenticationForm = (props: { page: string }) => {
                     >
                         {type === 'register'
                             ? 'Already have an account? Login'
-                            : "Don't have an account? Register"}
+                            : 'Don\'t have an account? Register'}
                     </Anchor>
-                    <Button type={'submit'} radius={'xl'}>
-                        {upperFirst(type)}
+                    <Button
+                        type={'submit'}
+                        radius={'xl'}
+                        style={{ textTransform: 'capitalize' }}
+                        onClick={(e) => {
+                            e.preventDefault()
+                            if (type === 'login') {
+                                alert('login')
+                            }
+                            else {
+                                alert('register')
+                            }
+                        }}
+                    >
+                        {type}
                     </Button>
                 </Group>
             </form>

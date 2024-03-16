@@ -31,6 +31,7 @@ const Navbar = () => {
     return (
         <Box className={classes.navContainer}>
             <Modal
+                radius={'lg'}
                 opened={opened}
                 onClose={close}
                 title={'Authentication'}
@@ -38,55 +39,113 @@ const Navbar = () => {
             >
                 <AuthenticationForm page={page} />
             </Modal>
-            <Container
-                size={'xl'}
-                py={'lg'}
+            <nav
                 className={classes.main_container}
             >
-                <header>
-                    <Group
-                        justify={'space-between'}
-                        h={'100%'}
-                    >
-                        <Link
-                            to='/'
-                            className={classes.link}
-                        >
-                            <Text
-                                fw={800}
-                                className={classes.text}
-                            >
-                                URL Shortner
-                            </Text>
-                        </Link>
+                <Container
+                    size={'xl'}
+                    py={'lg'}
+                >
+                    <header>
                         <Group
+                            justify={'space-between'}
                             h={'100%'}
-                            gap={0}
-                            visibleFrom={'sm'}
                         >
-                            <Flex
-                                direction={'row'}
-                                align={'center'}
+                            <Link
+                                to='/'
+                                className={classes.link}
                             >
-                                {data.map((items) => {
-                                    return (
-                                        <Link
-                                            className={classes.link}
-                                            to={items.link}
-                                        >
-                                            <Text
-                                                pr={'20px'}
-                                                fw={500}
-                                                className={classes.text}
+                                <Text
+                                    fw={800}
+                                    className={classes.text}
+                                >
+                                    URL Shortner
+                                </Text>
+                            </Link>
+                            <Group
+                                h={'100%'}
+                                gap={0}
+                                visibleFrom={'sm'}
+                            >
+                                <Flex
+                                    direction={'row'}
+                                    align={'center'}
+                                >
+                                    {data.map((items) => {
+                                        return (
+                                            <Link
+                                                className={classes.link}
+                                                to={items.link}
                                             >
-                                                {items.name}
-                                            </Text>
-                                        </Link>
+                                                <Text
+                                                    pr={'20px'}
+                                                    fw={500}
+                                                    className={classes.text}
+                                                >
+                                                    {items.name}
+                                                </Text>
+                                            </Link>
 
-                                    );
-                                })}
+                                        );
+                                    })}
+                                    <Button
+                                        mr={'20px'}
+                                        className={classes.button}
+                                        onClick={() => {
+                                            changePage('register')
+                                            open()
+                                        }}
+                                    >
+                                        Sign up
+                                    </Button>
+                                    <Button
+                                        onClick={() => {
+                                            changePage('login')
+                                            open()
+                                        }}
+                                        variant={'outline'}
+                                        className={classes.button}
+                                    >
+                                        Log in
+                                    </Button>
+                                </Flex>
+                            </Group>
+                            <Burger
+                                opened={drawerOpened}
+                                onClick={toggleDrawer}
+                                hiddenFrom={'sm'}
+                            />
+                        </Group>
+                    </header>
+                    <Drawer
+                        opened={drawerOpened}
+                        onClose={closeDrawer}
+                        size={'100%'}
+                        padding={'md'}
+                        title={'URL Shortner'}
+                        hiddenFrom={'sm'}
+                        zIndex={1000000}
+                    >
+                        <Divider
+                            my={'sm'}
+                        />
+                        {data.map((items) => {
+                            return (
+                                <Flex justify={'right'}>
+                                    <Link
+                                        to={items.link}
+                                        className={`${classes.link} ${classes.text}`}
+                                        onClick={() => { closeDrawer() }}
+                                    >
+                                        {items.name}
+                                    </Link>
+                                </Flex>
+                            )
+                        })}
+                        <Divider my={'sm'} />
+                        <Flex justify={'right'}>
+                            <Stack>
                                 <Button
-                                    mr={'20px'}
                                     className={classes.button}
                                     onClick={() => {
                                         changePage('register')
@@ -105,66 +164,11 @@ const Navbar = () => {
                                 >
                                     Log in
                                 </Button>
-                            </Flex>
-                        </Group>
-                        <Burger
-                            opened={drawerOpened}
-                            onClick={toggleDrawer}
-                            hiddenFrom={'sm'}
-                        />
-                    </Group>
-                </header>
-                <Drawer
-                    opened={drawerOpened}
-                    onClose={closeDrawer}
-                    size={'100%'}
-                    padding={'md'}
-                    title={'URL Shortner'}
-                    hiddenFrom={'sm'}
-                    zIndex={1000000}
-                >
-                    <Divider
-                        my={'sm'}
-                    />
-                    {data.map((items) => {
-                        return (
-                            <Flex justify={'right'}>
-                                <Link
-                                    to={items.link}
-                                    className={`${classes.link} ${classes.text}`}
-                                    onClick={() => { closeDrawer() }}
-                                >
-                                    {items.name}
-                                </Link>
-                            </Flex>
-                        )
-                    })}
-                    <Divider my={'sm'} />
-                    <Flex justify={'right'}>
-                        <Stack>
-                            <Button
-                                className={classes.button}
-                                onClick={() => {
-                                    changePage('register')
-                                    open()
-                                }}
-                            >
-                                Sign up
-                            </Button>
-                            <Button
-                                onClick={() => {
-                                    changePage('login')
-                                    open()
-                                }}
-                                variant={'outline'}
-                                className={classes.button}
-                            >
-                                Log in
-                            </Button>
-                        </Stack>
-                    </Flex>
-                </Drawer>
-            </Container>
+                            </Stack>
+                        </Flex>
+                    </Drawer>
+                </Container>
+            </nav>
         </Box >
     );
 }

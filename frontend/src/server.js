@@ -1,5 +1,5 @@
 const backendURL = 'https://short-fkjp.onrender.com/';
-const getshortenedURL = (url) => {
+const getshortenedURL = (url, setLoading) => {
 
     // Create a new XMLHttpRequest object
     const xhr = new XMLHttpRequest();
@@ -19,6 +19,7 @@ const getshortenedURL = (url) => {
 
             let displayData = document.getElementById('display_short_url');
             displayData.innerHTML = backendURL + response.URL;
+            setLoading(false);
 
             return response;
         }

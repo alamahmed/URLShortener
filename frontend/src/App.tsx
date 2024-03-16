@@ -1,10 +1,15 @@
 import '@mantine/core/styles.css'
+import '@mantine/charts/styles.css'
 import Navbar from './components/Navbar/Navbar'
+import Footer from './components/Footer/Footer'
 import Home from './pages/Home/Home'
 import Pricing from './pages/Pricing/Pricing'
 import Dashboard from './pages/Dashboard/Dashboard'
+import Overview from './components/Overview/Overview'
+import Settings from './components/Settings/Settings'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import classes from './App.module.css'
+import Profile from './components/Profile/Profile'
+// import classes from './App.module.css'
 
 const App = () => {
   return (
@@ -16,26 +21,37 @@ const App = () => {
         <Route path='/Dashboard' element={<Dashboard />}>
           <Route
             path='/Dashboard/'
-            element={<Pricing />}
+            element={
+              <Overview />
+            }
           />
           <Route
             path='/Dashboard/Profile'
-            element={<Pricing />}
+            element={
+              <Profile />
+            }
           />
           <Route
             path='/Dashboard/Security'
-            element={<Pricing />}
+            element={
+              <Home />
+            }
           />
           <Route
             path='/Dashboard/Analytics'
-            element={<Pricing />}
+            element={
+              <Home />
+            }
           />
           <Route
             path='/Dashboard/Settings'
-            element={<Pricing />}
+            element={
+              <Settings />
+            }
           />
         </Route>
       </Routes>
+      <Footer />
     </BrowserRouter>
   )
 }

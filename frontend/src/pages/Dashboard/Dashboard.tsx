@@ -12,7 +12,7 @@ import { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
 const mockdata = [
-    { icon: IconHome2, label: 'Dashboard', link: '/Dashboard/' },
+    { icon: IconHome2, label: 'Overview', link: '/Dashboard/' },
     { icon: IconUser, label: 'Profile', link: '/Dashboard/Profile' },
     { icon: IconFingerprint, label: 'Security', link: '/Dashboard/Security' },
     { icon: IconDeviceDesktopAnalytics, label: 'Analytics', link: '/Dashboard/Analytics' },
@@ -71,41 +71,37 @@ const Dashboard = () => {
         <Container
             size={'xl'}
             p={0}
-            pt={'20px'}
         >
-            <Flex
-                direction={'column'}
-                w={'80px'}
-                h={'90vh'}
-                align={'start'}
-            >
-                <Stack gap={0}>
-                    {links}
-                </Stack>
+            <Flex>
+                <nav className={classes.sidebar_container}>
+                    <Stack gap={0}>
+                        {links}
+                    </Stack>
+                    <nav className={classes.sidebar_bottom}>
+                        <NavbarLink
+                            key={'Settings'}
+                            link={'/Dashboard/Settings'}
+                            active={noOfMockData === active}
+                            onClick={() => setActive(noOfMockData)}
+                            icon={IconSettings}
+                            label={'Settings'}
+                        />
+                        <NavbarLink
+                            key={'Logout'}
+                            link={'/Dashboard/Logout'}
+                            active={noOfMockData + 1 === active}
+                            onClick={() => setActive(noOfMockData + 1)}
+                            icon={IconLogout}
+                            label={'Logout'}
+                        />
+                    </nav>
+                </nav>
                 <Flex
-                    direction={'column'}
-                    h={'65%'}
-                    justify={'end'}
+                    className={classes.outlet_container}
                 >
-                    <NavbarLink
-                        key={'Settings'}
-                        link={'/Dashboard/Settings'}
-                        active={noOfMockData === active}
-                        onClick={() => setActive(noOfMockData)}
-                        icon={IconSettings}
-                        label={'Settings'}
-                    />
-                    <NavbarLink
-                        key={'Logout'}
-                        link={'/Dashboard/Logout'}
-                        active={noOfMockData + 1 === active}
-                        onClick={() => setActive(noOfMockData + 1)}
-                        icon={IconLogout}
-                        label={'Logout'}
-                    />
+                    <Outlet />
                 </Flex>
             </Flex>
-            <Outlet />
         </Container>
     );
 }

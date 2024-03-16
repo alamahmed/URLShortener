@@ -36,7 +36,6 @@ const data = [
 
 const Pricing = () => {
     const [timeline, toggleTimeline] = useToggle(['Monthly', 'Yearly'])
-    // const [isHovered, setIsHovered] = useState<Record<string, boolean>>({})
     const [isHovered, setIsHovered] = useState(0)
 
 
@@ -89,7 +88,7 @@ const Pricing = () => {
                 >
                     {data.map((items) => {
                         return (
-                            <Grid.Col span={{ base: 10, lg: 2.4, md: 3, sm: 4 }}>
+                            <Grid.Col span={{ base: 7, lg: 2.4, md: 3, sm: 4 }}>
                                 <Card
                                     withBorder
                                     p={'xl'}
@@ -102,12 +101,12 @@ const Pricing = () => {
                                 >
                                     <Title
                                         lh={1}
-                                        my={'md'}
                                     >
                                         {items.title}
                                     </Title>
                                     <Flex
                                         align={'center'}
+                                        my={'md'}
                                     >
                                         <Title
                                             order={2}
@@ -127,6 +126,7 @@ const Pricing = () => {
                                         {items.description}
                                     </Text>
                                     <List
+                                        my={'lg'}
                                         spacing={'xs'}
                                         size={'sm'}
                                         center
@@ -146,6 +146,18 @@ const Pricing = () => {
                                             <List.Item>{list}</List.Item>
                                         ))}
                                     </List>
+                                    <Button
+                                        variant={'light'}
+                                        mt={'lg'}
+                                        radius={'md'}
+                                        style={{
+                                            color: isHovered === items.id ? 'white' : 'var(--mantine-primary-color-1)',
+                                            border: 'var(--mantine-primary-color-1) solid 1px',
+                                            borderColor: isHovered === items.id ? 'white' : 'var(--mantine-primary-color-1)'
+                                        }}
+                                    >
+                                        Choose Plan
+                                    </Button>
                                 </Card>
                             </Grid.Col>
                         );
