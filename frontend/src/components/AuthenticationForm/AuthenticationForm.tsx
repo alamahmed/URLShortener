@@ -11,12 +11,47 @@ import {
     Checkbox,
     Anchor,
     Stack,
+    Alert,
 } from '@mantine/core'
 import GoogleButton from './GoogleButton'
 import TwitterButton from './TwitterButton'
+import { sign_up, log_in } from '../../server'
+import React from 'react';
 
-const AuthenticationForm = (props: { page: string }) => {
-    const [type, toggle] = useState(props.page);
+interface Props {
+    page: string;
+    close: () => void
+}
+
+interface responseType {
+    message: string
+    status: string
+}
+
+
+const AuthenticationForm: React.FC<Props> = ({ page, close }) => {
+    const [type, toggle] = useState(page)
+    const [data, setData] = useState('');
+    const [status, setStatus] = useState('');
+
+    const delay = async (delay: number) => {
+        return new Promise(res => setTimeout(res, delay));
+    }
+
+    const callback = async (response: responseType) => {
+        let temp = document.getElementById('alert');
+        temp!.style.display = 'block';
+        setData(response.message);
+        setStatus(response.status);
+
+        await delay(1000);
+
+        temp!.style.display = 'none';
+        setData('');
+        setStatus('');
+        close();
+    }
+
     const form = useForm({
         initialValues: {
             email: '',
@@ -29,20 +64,31 @@ const AuthenticationForm = (props: { page: string }) => {
             email: (val) => (/^\S+@\S+$/.test(val) ? null : 'Invalid email'),
             password: (val) => (val.length <= 6 ? 'Password should include at least 6 characters' : null),
         },
-    });
+    })
 
     return (
         <Paper
             p={'lg'}
             bg={'transparent'}
         >
+            <Alert
+                lh={1}
+                my={'md'}
+                radius={'lg'}
+                variant={'light'}
+                color={status === 'Success' ? 'blue' : 'red'}
+                id={'alert'}
+                style={{ display: 'none' }}
+                title={status}
+            >
+                {data}
+            </Alert>
             <Text
                 size={'lg'}
                 fw={500}
             >
                 Welcome to URL Shortener, {type} with
             </Text>
-
             <form onSubmit={form.onSubmit(() => { })}>
                 <Stack>
                     {type === 'register' && (
@@ -110,10 +156,10 @@ const AuthenticationForm = (props: { page: string }) => {
                         onClick={(e) => {
                             e.preventDefault()
                             if (type === 'login') {
-                                alert('login')
+                                // Login Function
                             }
                             else {
-                                alert('register')
+                                sign_up(form.values.name, form.values.email, form.values.password, callback)
                             }
                         }}
                     >

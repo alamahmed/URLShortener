@@ -9,8 +9,7 @@ import Overview from './components/Overview/Overview'
 import Settings from './components/Settings/Settings'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Profile from './components/Profile/Profile'
-import { Flex } from '@mantine/core'
-// import classes from './App.module.css'
+import './App.css'
 
 const App = () => {
   return (

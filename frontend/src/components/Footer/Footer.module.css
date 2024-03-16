@@ -32,9 +32,9 @@
     display: block;
     color: var(--mantine-color-gray-6);
     font-size: var(--mantine-font-size-sm);
+    text-decoration: none;
     padding-top: 3px;
     padding-bottom: 3px;
-
     &:hover {
         text-decoration: underline;
     }

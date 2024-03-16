@@ -27,7 +27,6 @@ const Navbar = () => {
         { link: '/pricing', name: 'Pricing' },
         { link: '/dashboard', name: 'Dashboard' },
     ]
-
     return (
         <Box className={classes.navContainer}>
             <Modal
@@ -37,7 +36,7 @@ const Navbar = () => {
                 title={'Authentication'}
                 centered
             >
-                <AuthenticationForm page={page} />
+                <AuthenticationForm page={page} close={close} />
             </Modal>
             <nav
                 className={classes.main_container}

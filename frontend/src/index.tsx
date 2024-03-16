@@ -4,7 +4,7 @@ import { createTheme, MantineProvider } from '@mantine/core';
 import App from './App'
 import '@mantine/core/styles.css';
 import '@mantine/carousel/styles.css';
-import classes from './index.module.css'
+import './index.css'
 
 const theme = createTheme({
   colors: {

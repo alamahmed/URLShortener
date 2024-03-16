@@ -1,34 +1,27 @@
 import { Text, Container, ActionIcon, Group } from '@mantine/core'
 import { IconBrandTwitter, IconBrandYoutube, IconBrandInstagram } from '@tabler/icons-react'
+import { Link, Outlet } from 'react-router-dom'
 import classes from './Footer.module.css'
-import { Outlet, useLocation } from 'react-router-dom';
 
 const data = [
     {
         title: 'About',
         links: [
-            { label: 'Features', link: '#' },
-            { label: 'Pricing', link: '#' },
-            { label: 'Support', link: '#' },
-            { label: 'Forums', link: '#' },
+            { label: 'Pricing', link: '/pricing' },
         ],
     },
     {
         title: 'Project',
         links: [
-            { label: 'Contribute', link: '#' },
-            { label: 'Media assets', link: '#' },
-            { label: 'Changelog', link: '#' },
-            { label: 'Releases', link: '#' },
+            { label: 'Contribute', link: 'https://github.com/alamahmed/URLShortener' },
         ],
     },
     {
         title: 'Community',
         links: [
-            { label: 'Join Discord', link: '#' },
-            { label: 'Follow on Twitter', link: '#' },
-            { label: 'Email newsletter', link: '#' },
-            { label: 'GitHub discussions', link: '#' },
+            { label: 'Join Discord', link: '/' },
+            { label: 'Follow on Twitter', link: '/' },
+            { label: 'Email newsletter', link: '/' },
         ],
     },
 ];
@@ -36,15 +29,13 @@ const data = [
 const Footer = () => {
     const groups = data.map((group) => {
         const links = group.links.map((link, index) => (
-            <Text
-                href={link.link}
+            <Link
+                to={link.link}
                 key={index}
                 className={classes.link}
-                component={'a'}
-                onClick={(event) => event.preventDefault()}
             >
                 {link.label}
-            </Text>
+            </Link>
         ));
 
         return (
@@ -64,7 +55,7 @@ const Footer = () => {
                 <Container className={classes.inner}>
                     <div className={classes.logo}>
                         <Text size={'xs'} c={'dimmed'} className={classes.description}>
-                            Build fully functional accessible web applications faster than ever
+                            URL Shortener with custom URL Features and dashboard to manage and create new links
                         </Text>
                     </div>
                     <div className={classes.groups}>{groups}</div>

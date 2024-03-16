@@ -3,7 +3,6 @@ import { useState } from 'react'
 import { Container, Title, Button, Flex, Card, Text, CloseButton, Grid, Divider } from '@mantine/core'
 import { IconLink, IconId, IconHeart, IconActivity, IconTimeline, IconUserPlus, IconDashboard } from '@tabler/icons-react'
 import { Input } from '@mantine/core'
-import { useDisclosure } from '@mantine/hooks'
 import classes from './Home.module.css'
 
 
