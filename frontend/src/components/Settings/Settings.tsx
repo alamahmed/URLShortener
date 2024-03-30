@@ -5,37 +5,50 @@ import { useForm } from '@mantine/form';
 import { IconEdit } from '@tabler/icons-react';
 import Password from '../Password/Password';
 import { update_password, update_username } from '../../server';
+import { SessionContext } from '../../context/SessionContext';
 import { UserContext } from '../../context/UserContext';
 
-interface userProp {
+interface user {
     uid: string,
     username: string,
     email: string,
 }
 
-const Settings = ({ uid, username, email }: userProp) => {
+// type user_state = user;
+
+// // Function type for updating the user state
+// type update_user = React.Dispatch<React.SetStateAction<user_state>>;
+
+
+// const Settings = ({ uid, username, email, setUser }: user & { setUser: update_user }) => {
+const Settings = () => {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const [User, setUser] = useContext(UserContext);
+    const [name, setName] = useState('');
     const [valid, setValid] = useState(false);
     const [edit, setEdit] = useState(false)
-    const [token, setToken] = useContext(UserContext);
-
-
-    const saveChanges = (name: string) => {
-        console.log('changes saved new values are ', name)
-    }
+    const [token] = useContext(SessionContext);
 
     const callback = (status: boolean, message: string) => {
         if (status) {
+            setUser((prevState: user) => ({
+                ...prevState,
+                username: user.values.name,
+            }));
+            console.log('new username inside user is ', User.username)
+            console.log('new username is ', user.values.name)
+            setError('')
             setSuccess(message)
         }
         else {
+            setSuccess('')
             setError(message)
         }
     }
 
     const user = useForm({
-        initialValues: { name: username },
+        initialValues: { name: User.username },
         validate: {
             name: (value) => (value.length < 3 ? 'Name must have at least 3 letters' : null),
         },
@@ -104,30 +117,24 @@ const Settings = ({ uid, username, email }: userProp) => {
                                 direction={'column'}
                             >
                                 <form onSubmit={user.onSubmit((values) => {
-                                    if (values.name !== username) {
-                                        saveChanges(values.name)
+                                    if (values.name !== User.username) {
+                                        setName(user.values.name)
+                                        update_username(user.values.name, token, callback)
                                         setEdit(false)
                                     }
                                 })}>
                                     <TextInput
                                         disabled
                                         placeholder={'email'}
-                                        value={email}
+                                        value={User.email}
                                         label={'Email'}
                                         radius={'md'}
                                     />
                                     <TextInput
-                                        disabled
-                                        placeholder={'uid'}
-                                        value={uid}
-                                        label={'UID'}
-                                        radius={'md'}
-                                    />
-                                    <TextInput
-                                        my={'lg'}
+                                        my={'md'}
                                         disabled={!edit}
                                         placeholder={'username'}
-                                        value={user.values.name}
+                                        value={user.values.name || User.username}
                                         label={'Username'}
                                         onChange={(e) => {
                                             user.setFieldValue('name', e.target.value)
@@ -146,7 +153,7 @@ const Settings = ({ uid, username, email }: userProp) => {
                                                     mx={'md'}
                                                     radius={'lg'}
                                                     onClick={() => {
-                                                        user.values.name = username
+                                                        user.values.name = User.username
                                                         setEdit(false)
                                                     }}
                                                 >
@@ -155,9 +162,6 @@ const Settings = ({ uid, username, email }: userProp) => {
                                                 <Button
                                                     radius={'lg'}
                                                     type={'submit'}
-                                                    onClick={() => {
-                                                        update_username(user.values.name, token, callback)
-                                                    }}
                                                 >
                                                     Save
                                                 </Button>
@@ -242,7 +246,7 @@ const Settings = ({ uid, username, email }: userProp) => {
                                             onClick={() => {
                                                 if (pass.values.new_password === pass.values.confirm_password) {
                                                     if (valid) {
-                                                        update_password(email, pass.values.current_password, pass.values.new_password, callback)
+                                                        update_password(User.email, pass.values.current_password, pass.values.new_password, callback)
                                                         setEdit(false)
                                                     } else {
                                                         setError('Password do not met the criteria')

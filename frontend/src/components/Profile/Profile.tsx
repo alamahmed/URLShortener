@@ -1,8 +1,11 @@
 import { Flex } from '@mantine/core'
 import classes from './Profile.module.css'
+import { useContext } from 'react';
+import { UserContext } from '../../context/UserContext';
 
-const Profile: React.FC<{ uid: string }> = ({ uid }) => {
-
+const Profile = () => {
+    // const Profile: React.FC<{ uid: string }> = ({ uid }) => {
+    const [user] = useContext(UserContext)
     return (
         <Flex
             h={'90vh'}
@@ -11,7 +14,7 @@ const Profile: React.FC<{ uid: string }> = ({ uid }) => {
             direction={'column'}
             className={classes.main_container}
         >
-            Here I will add profile section
+            Hello {user.username}
         </Flex>
     );
 }

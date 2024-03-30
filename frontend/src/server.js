@@ -7,6 +7,8 @@ const getshortenedURL = (url, token, setLoading) => {
     xhr.setRequestHeader('Content-Type', 'application/json')
     if (token === null)
         token = ''
+    console.log('token is ', token)
+    console.log('url is ', url)
     xhr.send(JSON.stringify({ 'url': url, 'token': token }))
 
     xhr.onreadystatechange = function () {
@@ -101,8 +103,6 @@ const update_password = (email, curr_pass, new_pass, callback) => {
     const xhr = new XMLHttpRequest()
     xhr.open('POST', backendURL + 'update_password', true)
     xhr.setRequestHeader('Content-Type', 'application/json')
-    if (email === null)
-        email = ''
     xhr.send(JSON.stringify({ 'new_pass': new_pass, 'curr_pass': curr_pass, 'email': email }))
 
     xhr.onreadystatechange = function () {
@@ -115,16 +115,13 @@ const update_password = (email, curr_pass, new_pass, callback) => {
 
 const reset_password = (email, callback) => {
     const xhr = new XMLHttpRequest()
-    xhr.open('POST', backendURL + 'update_password', true)
+    xhr.open('POST', backendURL + 'reset_password', true)
     xhr.setRequestHeader('Content-Type', 'application/json')
-    if (email === null)
-        email = ''
     xhr.send(JSON.stringify({ 'email': email }))
-
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let response = JSON.parse(xhr.responseText)
-            callback(response.status, response.message)
+            callback(response)
         }
     }
 }

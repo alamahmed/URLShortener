@@ -2,7 +2,7 @@ import '@mantine/core/styles.css';
 import '@mantine/carousel/styles.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client'
-import { UserProvider } from './context/UserContext';
+import { SessionProvider } from './context/SessionContext';
 import { createTheme, MantineProvider } from '@mantine/core';
 import App from './App'
 import './index.css'
@@ -32,9 +32,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <MantineProvider theme={theme}>
-      <UserProvider>
+      <SessionProvider>
         <App />
-      </UserProvider>
+      </SessionProvider>
     </MantineProvider>
   </React.StrictMode>
 )

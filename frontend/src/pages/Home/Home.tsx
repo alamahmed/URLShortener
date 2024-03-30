@@ -1,6 +1,6 @@
 import { getshortenedURL } from '../../server.js'
 import { useState, useContext } from 'react'
-import { UserContext } from '../../context/UserContext.jsx'
+import { SessionContext } from '../../context/SessionContext.jsx'
 import { Container, Title, Button, Flex, Card, Text, CloseButton, Grid, Divider, Anchor } from '@mantine/core'
 import { IconLink, IconId, IconHeart, IconActivity, IconTimeline, IconUserPlus, IconDashboard } from '@tabler/icons-react'
 import { Input } from '@mantine/core'
@@ -54,7 +54,7 @@ const benefits = [
 
 const Home = () => {
     const [value, setValue] = useState('')
-    const [token] = useContext(UserContext)
+    const [token] = useContext(SessionContext)
     const [loading, setLoading] = useState(false)
 
 

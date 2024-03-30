@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { UserContext } from '../../context/UserContext';
+import { SessionContext } from '../../context/SessionContext';
 import AuthenticationForm from '../AuthenticationForm/AuthenticationForm';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDisclosure } from '@mantine/hooks';
@@ -20,7 +20,7 @@ import classes from './Navbar.module.css';
 
 const Navbar = () => {
     const [page, changePage] = useState('');
-    const [token, setToken] = useContext(UserContext)
+    const [token, setToken] = useContext(SessionContext)
     const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false)
     const [opened, { open, close }] = useDisclosure(false);
 

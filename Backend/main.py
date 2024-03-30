@@ -98,7 +98,7 @@ async def update_password( data: Password ):
     response = update_pass( data.email, data.curr_pass, data.new_pass )
     return response
 
-@app.post( 'reset_password' )
+@app.post( '/reset_password' )
 async def reset_password( data: Email ) :
     response = reset_pass( data.email )
     return response

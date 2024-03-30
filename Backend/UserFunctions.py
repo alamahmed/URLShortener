@@ -193,38 +193,35 @@ def update_pass(email, current_password, new_password):
         verify_password = requests.post( log_in_API + Api_key, data = payload ).json()
         status, message = False, ''
         if verify_password.get( 'error' ):
-            message = verify_password[ 'error' ][ 'message' ]
-        elif verify_password.get( 'token' ):
+            message = 'invalid current password'
+        elif verify_password.get( 'idToken' ):
             message = 'Password has been changed successfully'
             payload = {
-                'idToken': verify_password[ 'token' ],
+                'idToken': verify_password[ 'idToken' ],
                 'password': new_password,
                 'returnSecureToken': True
             }
-            response = requests.post( change_password + Api_key, data = payload )
+            response = requests.post( change_password + Api_key, data = payload ).json()
             if response.get('error'):
                 message = response['error']['message']
             else:
                 status = True
                 message = 'Your password has been changed successfully'
-        else:
-            message = 'Your current password is incorrect'
 
         return{ 'status': status, 'message': message }
     except Exception as err:
-        return { 'status': False, 'message': {err} }
+        return { 'status': False, 'message': err }
 
 def reset_pass(email):
     try:
         response = requests.post(password_reset_API+Api_key, data = {'requestType': 'PASSWORD_RESET', 'email': email}).json()
         status, message = False, ''
         if response.get('error'):
-            message = 'error at ' + {response['error']['message']}
+            message = response['error']['message']
         else:
             status = True
-            message = 'Plese Check your email: '+ {response['email']} + ' for password reset link'
-        
+            message = 'Plese Check your email for password reset link'
         return { 'status': status, 'message': message }
     except Exception as err:
-        return { 'status': False, 'message': 'error at {err}' }
+        return { 'status': False, 'message': err }
 

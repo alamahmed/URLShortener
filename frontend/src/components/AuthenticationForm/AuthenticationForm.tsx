@@ -12,9 +12,9 @@ import {
     Stack,
 } from '@mantine/core'
 import GoogleButton from './GoogleButton'
-import { sign_up, log_in } from '../../server'
+import { sign_up, log_in, reset_password } from '../../server'
 import React from 'react';
-import { UserContext } from '../../context/UserContext'
+import { SessionContext } from '../../context/SessionContext'
 import Password from '../Password/Password'
 
 interface Props {
@@ -29,13 +29,13 @@ interface ResponseType {
 }
 
 const AuthenticationForm: React.FC<Props> = ({ page, close }) => {
+    let email = 'temp@mail.com'
     const [valid, setValid] = useState(false);
-
     const [type, toggle] = useState(page)
     const [error, setError] = useState('')
     const [success, setSuccess] = useState('');
     const [status, setStatus] = useState(false);
-    const [, setToken] = useContext(UserContext);
+    const [, setToken] = useContext(SessionContext);
 
     const form = useForm({
         initialValues: {
@@ -64,7 +64,6 @@ const AuthenticationForm: React.FC<Props> = ({ page, close }) => {
         setError('');
         setSuccess(response.message);
         setStatus(response.status);
-
         let time = 0
         if (response.status)
             time = 2000
@@ -121,7 +120,7 @@ const AuthenticationForm: React.FC<Props> = ({ page, close }) => {
                     <TextInput
                         required
                         label={'Email'}
-                        placeholder={'hello@mantine.dev'}
+                        placeholder={'hello@gmail.com'}
                         value={form.values.email}
                         onChange={(e) => {
                             form.setFieldValue('email', e.currentTarget.value)
@@ -173,7 +172,9 @@ const AuthenticationForm: React.FC<Props> = ({ page, close }) => {
                         fz={'xs'}
                         w={'fit-content'}
                         onClick={() => {
-                            console.log('forget password')
+                            form.setFieldError('email', /^\S+@\S+$/.test(form.values.email) ? null : 'Invalid email')
+                            if (/^\S+@\S+$/.test(form.values.email))
+                                reset_password(form.values.email, callback)
                         }}
                     >
                         Forget Password
@@ -223,7 +224,6 @@ const AuthenticationForm: React.FC<Props> = ({ page, close }) => {
             />
             <Group grow mb={'md'} mt={'md'}>
                 <GoogleButton radius={'xl'}>Google</GoogleButton>
-                <TwitterButton radius={'xl'}>Twitter</TwitterButton>
             </Group> */}
 
         </Paper>

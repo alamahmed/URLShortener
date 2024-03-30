@@ -10,7 +10,7 @@ import {
 import classes from './Dashboard.module.css';
 import { useContext, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
-import { UserContext } from '../../context/UserContext';
+import { SessionContext } from '../../context/SessionContext';
 import UnauthorizedPage from '../../components/UnauthorizedPage/UnauthorizedPage';
 
 const mockdata = [
@@ -56,7 +56,7 @@ const NavbarLink = ({ icon: Icon, label, active, onClick, link }: NavbarLinkProp
 const Dashboard = () => {
 
     const [active, setActive] = useState(0);
-    const [token] = useContext(UserContext);
+    const [token, setToken] = useContext(SessionContext);
 
     const links = mockdata.map((link, index) => (
         <NavbarLink
@@ -91,9 +91,9 @@ const Dashboard = () => {
                         />
                         <NavbarLink
                             key={'Logout'}
-                            link={'/dashboard/logout'}
+                            link={'/'}
                             active={noOfMockData + 1 === active}
-                            onClick={() => setActive(noOfMockData + 1)}
+                            onClick={() => setToken(null)}
                             icon={IconLogout}
                             label={'Logout'}
                         />

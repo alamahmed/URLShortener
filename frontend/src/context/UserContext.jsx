@@ -1,46 +1,47 @@
-import { createContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
+import { SessionContext } from './SessionContext'
 
 export const UserContext = createContext()
 
 export const UserProvider = (props) => {
-    const [token, setToken] = useState(localStorage.getItem('userToken'));
+    const [token] = useContext(SessionContext)
+    const [user, setUser] = useState(localStorage.getItem('user') | { uid: '', username: '', email: '' })
 
     useEffect(() => {
-        const fetchUser = async () => {
-            if (token === null) {
-                localStorage.removeItem('userToken')
-            } else {
-                const requestOptions = {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ token }) // Include token in the request body
-                };
+        const getData = async () => {
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ token })
+            };
 
-                try {
-                    const response = await fetch('http://127.0.0.1:8000/verify_token', requestOptions);
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    const responseJson = await response.json();
-                    if (responseJson.status) {
-                        localStorage.setItem('userToken', token)
-                    }
-                    else {
-                        localStorage.removeItem('userToken')
-                    }
-                } catch (error) {
-                    localStorage.removeItem('userToken')
+            try {
+                const response = await fetch('http://127.0.0.1:8000/get_user', requestOptions);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
+                const responseJson = await response.json();
+                if (responseJson.status) {
+                    setUser(prevState => ({
+                        ...prevState,
+                        uid: responseJson.uid,
+                        email: responseJson.email,
+                        username: responseJson.username,
+                    }));
+                }
+            } catch (error) {
+                localStorage.removeItem('userToken')
             }
-
-        };
-        fetchUser();
-    }, [token, setToken])
+        }
+        if (token)
+            getData()
+        //eslint-disable-next-line
+    }, [token])
 
     return (
-        <UserContext.Provider value={[token, setToken]}>
+        <UserContext.Provider value={[user, setUser]}>
             {props.children}
         </UserContext.Provider>
     )

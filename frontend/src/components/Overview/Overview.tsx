@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { UserContext } from '../../context/UserContext';
+import { SessionContext } from '../../context/SessionContext';
 import { Anchor, Button, CloseButton, Container, Flex, Input, Modal, Title } from '@mantine/core'
 import { Table, Group, Text, ActionIcon } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
@@ -7,6 +7,7 @@ import { IconPencil, IconSearch, IconTrash } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 import { get_data, delete_url } from '../../server';
 import classes from './Overview.module.css'
+import { UserContext } from '../../context/UserContext';
 
 interface responseObj {
     status: boolean;
@@ -19,7 +20,8 @@ interface customArray {
     short_url: string;
 }
 
-const Overview: React.FC<{ uid: string }> = ({ uid }) => {
+const Overview = () => {
+    // const Overview: React.FC<{ uid: string }> = ({ uid }) => {
     const [isUpdate, setIsUpdate] = useState(true)
     const [toDelete, setDelete] = useState('');
     const [value, setValue] = useState('');
@@ -27,11 +29,11 @@ const Overview: React.FC<{ uid: string }> = ({ uid }) => {
     const [data, setData] = useState<customArray[] | null>(null);
     const [message, setMessage] = useState('');
     const [opened, { open, close }] = useDisclosure(false);
-    const [token] = useContext(UserContext);
+    const [token] = useContext(SessionContext);
+    const [user] = useContext(UserContext)
     const navigate = useNavigate();
-
     useEffect(() => {
-        get_data(uid, callback)
+        get_data(user.uid, callback)
     }, [toDelete])
 
     const callback = (response: responseObj) => {
