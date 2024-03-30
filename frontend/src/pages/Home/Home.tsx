@@ -1,6 +1,7 @@
 import { getshortenedURL } from '../../server.js'
-import { useState } from 'react'
-import { Container, Title, Button, Flex, Card, Text, CloseButton, Grid, Divider } from '@mantine/core'
+import { useState, useContext } from 'react'
+import { UserContext } from '../../context/UserContext.jsx'
+import { Container, Title, Button, Flex, Card, Text, CloseButton, Grid, Divider, Anchor } from '@mantine/core'
 import { IconLink, IconId, IconHeart, IconActivity, IconTimeline, IconUserPlus, IconDashboard } from '@tabler/icons-react'
 import { Input } from '@mantine/core'
 import classes from './Home.module.css'
@@ -8,36 +9,43 @@ import classes from './Home.module.css'
 
 const benefits = [
     {
+        id: 1,
         icon: <IconLink />,
         heading: 'Custom Short Links',
         description: 'Create Branded links that are easy to remember and pronounce'
     },
     {
+        id: 2,
         icon: <IconId />,
         heading: 'Branded links',
         description: 'Create links with your own domain'
     },
     {
+        id: 3,
         icon: <IconHeart />,
         heading: 'Link retargeting',
         description: 'Add pixels from Facebook, Google, Linkedin, X, and more'
     },
     {
+        id: 4,
         icon: <IconActivity />,
         heading: 'Link health monitoring',
         description: 'Set up automatic monitoring for broken links'
     },
     {
+        id: 5,
         icon: <IconTimeline />,
         heading: 'Custom splash pages',
         description: 'Create a page that matches your brand'
     },
     {
+        id: 6,
         icon: <IconUserPlus />,
         heading: 'Team permissions',
         description: 'Invite your team members to collaborate on your links'
     },
     {
+        id: 7,
         icon: <IconDashboard />,
         heading: 'Dashboard',
         description: 'Get access to your History of previously Created links'
@@ -46,7 +54,8 @@ const benefits = [
 
 const Home = () => {
     const [value, setValue] = useState('')
-    const [loading, setLoading] = useState(false);
+    const [token] = useContext(UserContext)
+    const [loading, setLoading] = useState(false)
 
 
     return (
@@ -127,10 +136,9 @@ const Home = () => {
                                         },
                                     }}
                                     onClick={(e) => {
-                                        // toggle();
                                         e.preventDefault();
                                         setLoading(true);
-                                        getshortenedURL(value, setLoading);
+                                        getshortenedURL(value, token, setLoading);
                                     }}
                                 >
                                     Shorten URL
@@ -144,14 +152,15 @@ const Home = () => {
                             >
                                 Shortened URL
                             </Title>
-                            <Text
+                            <Anchor
+                                href={''}
                                 ta={'center'}
                                 lh={1.3}
                                 w={'90%'}
                                 id={'display_short_url'}
                                 className={classes.shortened_URL}
                             >
-                            </Text>
+                            </Anchor>
                         </Flex>
                     </Card>
                 </Flex>
@@ -177,7 +186,7 @@ const Home = () => {
                     >
                         {benefits.map((items) => {
                             return (
-                                <Grid.Col span={{ base: 10, lg: 2.4, md: 3, sm: 4 }}>
+                                <Grid.Col key={items.id} span={{ base: 10, lg: 2.4, md: 3, sm: 4 }}>
                                     <Card
                                         withBorder
                                         p={'xl'}

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useForm } from '@mantine/form'
 import {
     TextInput,
@@ -7,96 +7,114 @@ import {
     Paper,
     Group,
     Button,
-    Divider,
     Checkbox,
     Anchor,
     Stack,
-    Alert,
 } from '@mantine/core'
 import GoogleButton from './GoogleButton'
-import TwitterButton from './TwitterButton'
 import { sign_up, log_in } from '../../server'
 import React from 'react';
+import { UserContext } from '../../context/UserContext'
+import Password from '../Password/Password'
 
 interface Props {
     page: string;
     close: () => void
 }
 
-interface responseType {
+interface ResponseType {
     message: string
-    status: string
+    status: boolean
+    token?: string
 }
 
-
 const AuthenticationForm: React.FC<Props> = ({ page, close }) => {
+    const [valid, setValid] = useState(false);
+
     const [type, toggle] = useState(page)
-    const [data, setData] = useState('');
-    const [status, setStatus] = useState('');
-
-    const delay = async (delay: number) => {
-        return new Promise(res => setTimeout(res, delay));
-    }
-
-    const callback = async (response: responseType) => {
-        let temp = document.getElementById('alert');
-        temp!.style.display = 'block';
-        setData(response.message);
-        setStatus(response.status);
-
-        await delay(1000);
-
-        temp!.style.display = 'none';
-        setData('');
-        setStatus('');
-        close();
-    }
+    const [error, setError] = useState('')
+    const [success, setSuccess] = useState('');
+    const [status, setStatus] = useState(false);
+    const [, setToken] = useContext(UserContext);
 
     const form = useForm({
         initialValues: {
             email: '',
             name: '',
             password: '',
+            confirm_password: '',
             terms: true,
         },
 
         validate: {
             email: (val) => (/^\S+@\S+$/.test(val) ? null : 'Invalid email'),
-            password: (val) => (val.length <= 6 ? 'Password should include at least 6 characters' : null),
         },
     })
+
+    const handlePassword = (strength: number, value: string) => {
+        setValid(strength === 100 ? true : false)
+        form.setFieldValue('password', value)
+    }
+
+    const delay = async (delay: number) => {
+        return new Promise(res => setTimeout(res, delay));
+    }
+
+    const callback = async (response: ResponseType) => {
+        setError('');
+        setSuccess(response.message);
+        setStatus(response.status);
+
+        let time = 0
+        if (response.status)
+            time = 2000
+        else
+            time = 3000
+
+        await delay(time);
+
+        setSuccess('');
+        setStatus(false);
+        if (response.status && type === 'login') {
+            setToken(response.token)
+            close()
+        }
+    }
 
     return (
         <Paper
             p={'lg'}
             bg={'transparent'}
         >
-            <Alert
-                lh={1}
-                my={'md'}
-                radius={'lg'}
-                variant={'light'}
-                color={status === 'Success' ? 'blue' : 'red'}
-                id={'alert'}
-                style={{ display: 'none' }}
-                title={status}
-            >
-                {data}
-            </Alert>
             <Text
                 size={'lg'}
                 fw={500}
             >
                 Welcome to URL Shortener, {type} with
             </Text>
-            <form onSubmit={form.onSubmit(() => { })}>
+            <form onSubmit={form.onSubmit((values) => {
+                if (type === 'login') {
+                    log_in(values.email, values.password, callback)
+                }
+                else if (valid) {
+                    if (values.password === values.confirm_password) {
+                        sign_up(values.name, values.email, values.password, callback)
+                    }
+                    else {
+                        setError('Your password does not match');
+                    }
+                }
+                else {
+                    setError('Password do not met the minimum criteria')
+                }
+            })}>
                 <Stack>
                     {type === 'register' && (
                         <TextInput
                             label={'Name'}
                             placeholder={'Your name'}
                             value={form.values.name}
-                            onChange={(event) => form.setFieldValue('name', event.currentTarget.value)}
+                            onChange={(e) => form.setFieldValue('name', e.currentTarget.value)}
                             radius={'md'}
                         />
                     )}
@@ -105,31 +123,71 @@ const AuthenticationForm: React.FC<Props> = ({ page, close }) => {
                         label={'Email'}
                         placeholder={'hello@mantine.dev'}
                         value={form.values.email}
-                        onChange={(event) => form.setFieldValue('email', event.currentTarget.value)}
+                        onChange={(e) => {
+                            form.setFieldValue('email', e.currentTarget.value)
+                        }}
                         error={form.errors.email && 'Invalid email'}
-                        radius="md"
-                    />
-
-                    <PasswordInput
-                        required
-                        label={'Password'}
-                        placeholder={'Your password'}
-                        value={form.values.password}
-                        onChange={(event) => form.setFieldValue('password', event.currentTarget.value)}
-                        error={form.errors.password && 'Password should include at least 6 characters'}
                         radius={'md'}
                     />
+                    {
+                        type === 'register' ?
+                            <Password
+                                label={'Password'}
+                                placeHolder={'Your new password'}
+                                value={form.values.password}
+                                handleChange={handlePassword}
+                            />
+                            :
+                            <PasswordInput
+                                required
+                                label={'Password'}
+                                placeholder={'Password'}
+                                radius={'md'}
+                                value={form.values.password}
+                                onChange={(e) => {
+                                    form.setFieldValue('password', e.target.value)
+                                }}
+                            />
+                    }
 
                     {type === 'register' && (
-                        <Checkbox
-                            label={'I accept terms and conditions'}
-                            checked={form.values.terms}
-                            onChange={(event) => form.setFieldValue('terms', event.currentTarget.checked)}
-                        />
+                        <>
+                            <PasswordInput
+                                required
+                                label={'Confirm Password'}
+                                placeholder={'Confirm password'}
+                                radius={'md'}
+                                value={form.values.confirm_password}
+                                onChange={(e) => {
+                                    form.setFieldValue('confirm_password', e.target.value)
+                                }}
+                            />
+                            <Checkbox
+                                label={'I accept terms and conditions'}
+                                checked={form.values.terms}
+                                onChange={(e) => form.setFieldValue('terms', e.currentTarget.checked)}
+                            />
+                        </>
                     )}
+                    <Anchor
+                        fz={'xs'}
+                        w={'fit-content'}
+                        onClick={() => {
+                            console.log('forget password')
+                        }}
+                    >
+                        Forget Password
+                    </Anchor>
+                    <Text
+                        display={(error || success) ? 'block' : 'none'}
+                        c={status ? 'teal' : 'red'}
+                        fz={'sm'}
+                    >
+                        {error ? error : (success ? success : null)}
+                    </Text>
                 </Stack>
 
-                <Group justify={'space-between'} mt={'xl'}>
+                <Group justify={'space-between'}>
                     <Anchor
                         component={'button'}
                         type={'button'}
@@ -153,21 +211,12 @@ const AuthenticationForm: React.FC<Props> = ({ page, close }) => {
                         type={'submit'}
                         radius={'xl'}
                         style={{ textTransform: 'capitalize' }}
-                        onClick={(e) => {
-                            e.preventDefault()
-                            if (type === 'login') {
-                                // Login Function
-                            }
-                            else {
-                                sign_up(form.values.name, form.values.email, form.values.password, callback)
-                            }
-                        }}
                     >
                         {type}
                     </Button>
                 </Group>
             </form>
-            <Divider
+            {/* <Divider
                 label='Or continue with email'
                 labelPosition={'center'}
                 my={'lg'}
@@ -175,7 +224,7 @@ const AuthenticationForm: React.FC<Props> = ({ page, close }) => {
             <Group grow mb={'md'} mt={'md'}>
                 <GoogleButton radius={'xl'}>Google</GoogleButton>
                 <TwitterButton radius={'xl'}>Twitter</TwitterButton>
-            </Group>
+            </Group> */}
 
         </Paper>
     );

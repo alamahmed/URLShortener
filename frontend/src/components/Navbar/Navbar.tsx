@@ -1,3 +1,8 @@
+import { useContext, useState } from 'react';
+import { UserContext } from '../../context/UserContext';
+import AuthenticationForm from '../AuthenticationForm/AuthenticationForm';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDisclosure } from '@mantine/hooks';
 import {
     Group,
     Divider,
@@ -11,22 +16,22 @@ import {
     Modal,
     Stack,
 } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
 import classes from './Navbar.module.css';
-import { Link } from 'react-router-dom';
-import AuthenticationForm from '../AuthenticationForm/AuthenticationForm';
-import { useState } from 'react';
 
 const Navbar = () => {
+    const [page, changePage] = useState('');
+    const [token, setToken] = useContext(UserContext)
     const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false)
     const [opened, { open, close }] = useDisclosure(false);
-    const [page, changePage] = useState('');
+
+    const navigate = useNavigate()
 
     const data = [
-        { link: '/', name: 'Home' },
-        { link: '/pricing', name: 'Pricing' },
-        { link: '/dashboard', name: 'Dashboard' },
+        { id: 1, link: '/', name: 'Home' },
+        { id: 2, link: '/pricing', name: 'Pricing' },
+        { id: 3, link: '/dashboard', name: 'Dashboard' },
     ]
+
     return (
         <Box className={classes.navContainer}>
             <Modal
@@ -73,6 +78,7 @@ const Navbar = () => {
                                     {data.map((items) => {
                                         return (
                                             <Link
+                                                key={items.id}
                                                 className={classes.link}
                                                 to={items.link}
                                             >
@@ -91,22 +97,31 @@ const Navbar = () => {
                                         mr={'20px'}
                                         className={classes.button}
                                         onClick={() => {
-                                            changePage('register')
-                                            open()
+                                            if (token) {
+                                                setToken(null)
+                                                navigate('/')
+                                            } else {
+                                                changePage('register')
+                                                open()
+                                            }
                                         }}
                                     >
-                                        Sign up
+                                        {token === null ? 'Sign up' : 'Log out'}
                                     </Button>
-                                    <Button
-                                        onClick={() => {
-                                            changePage('login')
-                                            open()
-                                        }}
-                                        variant={'outline'}
-                                        className={classes.button}
-                                    >
-                                        Log in
-                                    </Button>
+                                    {
+                                        token === null ?
+                                            <Button
+                                                onClick={() => {
+                                                    changePage('login')
+                                                    open()
+                                                }}
+                                                variant={'outline'}
+                                                className={classes.button}
+                                            >
+                                                Log in
+                                            </Button>
+                                            : null
+                                    }
                                 </Flex>
                             </Group>
                             <Burger
@@ -130,7 +145,7 @@ const Navbar = () => {
                         />
                         {data.map((items) => {
                             return (
-                                <Flex justify={'right'}>
+                                <Flex key={items.id} justify={'right'}>
                                     <Link
                                         to={items.link}
                                         className={`${classes.link} ${classes.text}`}

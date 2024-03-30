@@ -8,8 +8,10 @@ import {
     IconLogout,
 } from '@tabler/icons-react';
 import classes from './Dashboard.module.css';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import { UserContext } from '../../context/UserContext';
+import UnauthorizedPage from '../../components/UnauthorizedPage/UnauthorizedPage';
 
 const mockdata = [
     { icon: IconHome2, label: 'Overview', link: '/dashboard' },
@@ -28,7 +30,7 @@ interface NavbarLinkProps {
     onClick?(): void;
 }
 
-function NavbarLink({ icon: Icon, label, active, onClick, link }: NavbarLinkProps) {
+const NavbarLink = ({ icon: Icon, label, active, onClick, link }: NavbarLinkProps) => {
     return (
         <Tooltip
             label={label}
@@ -54,6 +56,7 @@ function NavbarLink({ icon: Icon, label, active, onClick, link }: NavbarLinkProp
 const Dashboard = () => {
 
     const [active, setActive] = useState(0);
+    const [token] = useContext(UserContext);
 
     const links = mockdata.map((link, index) => (
         <NavbarLink
@@ -99,7 +102,12 @@ const Dashboard = () => {
                 <Flex
                     className={classes.outlet_container}
                 >
-                    <Outlet />
+                    {token === null ?
+
+                        <UnauthorizedPage />
+                        :
+                        <Outlet />
+                    }
                 </Flex>
             </Flex>
         </Container>

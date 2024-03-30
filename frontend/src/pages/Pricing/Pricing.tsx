@@ -8,7 +8,6 @@ const data = [
     {
         id: 1,
         title: 'Basic',
-        icon: 'someIcon',
         currency: '$',
         price: 10,
         description: 'Description for who is this for',
@@ -17,7 +16,6 @@ const data = [
     {
         id: 2,
         title: 'Standard',
-        icon: 'someIcon',
         currency: '$',
         price: 20,
         description: 'Description for who is this for',
@@ -26,7 +24,6 @@ const data = [
     {
         id: 3,
         title: 'Premium',
-        icon: 'someIcon',
         currency: '$',
         price: 30,
         description: 'Description for who is this for',
@@ -37,7 +34,6 @@ const data = [
 const Pricing = () => {
     const [timeline, toggleTimeline] = useToggle(['Monthly', 'Yearly'])
     const [isHovered, setIsHovered] = useState(0)
-
 
     return (
         <Container

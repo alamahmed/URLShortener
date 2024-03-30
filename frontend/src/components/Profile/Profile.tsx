@@ -1,16 +1,17 @@
 import { Flex } from '@mantine/core'
-import History from '../History/History';
 import classes from './Profile.module.css'
 
-const Profile = () => {
+const Profile: React.FC<{ uid: string }> = ({ uid }) => {
 
     return (
         <Flex
             h={'90vh'}
+            align={'center'}
+            justify={'center'}
             direction={'column'}
             className={classes.main_container}
         >
-            <History />
+            Here I will add profile section
         </Flex>
     );
 }
