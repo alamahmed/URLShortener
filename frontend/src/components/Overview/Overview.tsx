@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { SessionContext } from '../../context/SessionContext';
-import { Anchor, Button, CloseButton, Container, Flex, Input, Modal, Title } from '@mantine/core'
+import { Anchor, Button, CloseButton, Container, Flex, Input, Modal, Notification, Title } from '@mantine/core'
 import { Table, Group, Text, ActionIcon } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconPencil, IconSearch, IconTrash } from '@tabler/icons-react';
@@ -34,6 +34,7 @@ const Overview = () => {
     const navigate = useNavigate();
     useEffect(() => {
         get_data(user.uid, callback)
+        // eslint-disable-next-line
     }, [toDelete])
 
     const callback = (response: responseObj) => {
@@ -42,10 +43,16 @@ const Overview = () => {
         }
     }
 
-    const delete_callback = (response: responseObj) => {
+    const delay = async (delay: number) => {
+        return new Promise(res => setTimeout(res, delay));
+    }
+
+    const delete_callback = async (response: responseObj) => {
         if (response.status) {
             setMessage(response.message!)
             setDelete('')
+            await delay(3000)
+            setMessage('')
         }
     }
 
@@ -120,7 +127,6 @@ const Overview = () => {
                                     <Button
                                         radius={'md'}
                                         onClick={() => {
-                                            console.log('data to delete is', toDelete);
                                             delete_url(toDelete, token, delete_callback)
                                             close()
                                         }}
@@ -267,6 +273,17 @@ const Overview = () => {
                     </Table.Tbody>
                 </Table>
             </Table.ScrollContainer>
+            {message ? <Flex
+                justify={'flex-end'}
+            >
+                <Notification
+                    w={'25%'}
+                >
+                    {message}
+                </Notification>
+            </Flex>
+                : null
+            }
         </Flex>
     );
 }

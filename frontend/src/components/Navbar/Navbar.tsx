@@ -27,9 +27,9 @@ const Navbar = () => {
     const navigate = useNavigate()
 
     const data = [
-        { id: 1, link: '/', name: 'Home' },
-        { id: 2, link: '/pricing', name: 'Pricing' },
-        { id: 3, link: '/dashboard', name: 'Dashboard' },
+        { link: '/', name: 'Home' },
+        // { link: '/pricing', name: 'Pricing' },
+        { link: '/dashboard', name: 'Dashboard' },
     ]
 
     return (
@@ -78,7 +78,6 @@ const Navbar = () => {
                                     {data.map((items) => {
                                         return (
                                             <Link
-                                                key={items.id}
                                                 className={classes.link}
                                                 to={items.link}
                                             >
@@ -145,7 +144,7 @@ const Navbar = () => {
                         />
                         {data.map((items) => {
                             return (
-                                <Flex key={items.id} justify={'right'}>
+                                <Flex justify={'right'}>
                                     <Link
                                         to={items.link}
                                         className={`${classes.link} ${classes.text}`}
@@ -162,22 +161,34 @@ const Navbar = () => {
                                 <Button
                                     className={classes.button}
                                     onClick={() => {
-                                        changePage('register')
-                                        open()
+                                        if (token) {
+                                            setToken(null)
+                                            navigate('/')
+                                            closeDrawer()
+                                        } else {
+                                            closeDrawer()
+                                            changePage('register')
+                                            open()
+                                        }
                                     }}
                                 >
-                                    Sign up
+                                    {token === null ? 'Sign up' : 'Log out'}
                                 </Button>
-                                <Button
-                                    onClick={() => {
-                                        changePage('login')
-                                        open()
-                                    }}
-                                    variant={'outline'}
-                                    className={classes.button}
-                                >
-                                    Log in
-                                </Button>
+                                {
+                                    token === null ?
+                                        <Button
+                                            onClick={() => {
+                                                closeDrawer()
+                                                changePage('login')
+                                                open()
+                                            }}
+                                            variant={'outline'}
+                                            className={classes.button}
+                                        >
+                                            Log in
+                                        </Button>
+                                        : null
+                                }
                             </Stack>
                         </Flex>
                     </Drawer>

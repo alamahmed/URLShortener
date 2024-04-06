@@ -1,5 +1,5 @@
 // const backendURL = 'https://short-fkjp.onrender.com/';
-const backendURL = 'http://127.0.0.1:8000/';
+const backendURL = 'http://localhost:8000/';
 
 const getshortenedURL = (url, token, setLoading) => {
     const xhr = new XMLHttpRequest()
@@ -7,8 +7,6 @@ const getshortenedURL = (url, token, setLoading) => {
     xhr.setRequestHeader('Content-Type', 'application/json')
     if (token === null)
         token = ''
-    console.log('token is ', token)
-    console.log('url is ', url)
     xhr.send(JSON.stringify({ 'url': url, 'token': token }))
 
     xhr.onreadystatechange = function () {

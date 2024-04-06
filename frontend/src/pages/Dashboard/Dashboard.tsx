@@ -1,10 +1,8 @@
 import { Container, Stack, Flex, Tooltip, rem } from '@mantine/core';
 import {
     IconHome2,
-    IconDeviceDesktopAnalytics,
     IconFingerprint,
     IconUser,
-    IconSettings,
     IconLogout,
 } from '@tabler/icons-react';
 import classes from './Dashboard.module.css';
@@ -17,7 +15,6 @@ const mockdata = [
     { icon: IconHome2, label: 'Overview', link: '/dashboard' },
     { icon: IconUser, label: 'Profile', link: '/dashboard/profile' },
     { icon: IconFingerprint, label: 'Security', link: '/dashboard/security' },
-    { icon: IconDeviceDesktopAnalytics, label: 'Analytics', link: '/dashboard/analytics' },
 ];
 
 let noOfMockData = mockdata.length;
@@ -76,32 +73,25 @@ const Dashboard = () => {
             p={0}
         >
             <Flex>
-                <nav className={classes.sidebar_container}>
+                <Flex
+                    h={'90%'}
+                    direction={'column'}
+                    justify={'space-between'}
+                    className={classes.sidebar_container}
+                >
                     <Stack gap={0}>
                         {links}
                     </Stack>
-                    <nav className={classes.sidebar_bottom}>
-                        <NavbarLink
-                            key={'Settings'}
-                            link={'/dashboard/settings'}
-                            active={noOfMockData === active}
-                            onClick={() => setActive(noOfMockData)}
-                            icon={IconSettings}
-                            label={'Settings'}
-                        />
-                        <NavbarLink
-                            key={'Logout'}
-                            link={'/'}
-                            active={noOfMockData + 1 === active}
-                            onClick={() => setToken(null)}
-                            icon={IconLogout}
-                            label={'Logout'}
-                        />
-                    </nav>
-                </nav>
-                <Flex
-                    className={classes.outlet_container}
-                >
+                    <NavbarLink
+                        key={'Logout'}
+                        link={'/'}
+                        active={noOfMockData + 1 === active}
+                        onClick={() => setToken(null)}
+                        icon={IconLogout}
+                        label={'Logout'}
+                    />
+                </Flex>
+                <Flex className={classes.outlet_container}>
                     {token === null ?
 
                         <UnauthorizedPage />

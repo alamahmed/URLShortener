@@ -21,7 +21,7 @@ const data = [
         links: [
             { label: 'Join Discord', link: '/' },
             { label: 'Follow on Twitter', link: '/' },
-            { label: 'Email newsletter', link: '/' },
+            { label: 'Email', link: 'mailto:alamahmed2003@gmail.com?Subject=Query about URL Shortener' },
         ],
     },
 ];

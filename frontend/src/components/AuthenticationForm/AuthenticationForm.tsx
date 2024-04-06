@@ -11,7 +11,7 @@ import {
     Anchor,
     Stack,
 } from '@mantine/core'
-import GoogleButton from './GoogleButton'
+// import GoogleButton from './GoogleButton'
 import { sign_up, log_in, reset_password } from '../../server'
 import React from 'react';
 import { SessionContext } from '../../context/SessionContext'
@@ -29,12 +29,10 @@ interface ResponseType {
 }
 
 const AuthenticationForm: React.FC<Props> = ({ page, close }) => {
-    let email = 'temp@mail.com'
     const [valid, setValid] = useState(false);
     const [type, toggle] = useState(page)
     const [error, setError] = useState('')
-    const [success, setSuccess] = useState('');
-    const [status, setStatus] = useState(false);
+    const [success, setSuccess] = useState('')
     const [, setToken] = useContext(SessionContext);
 
     const form = useForm({
@@ -63,17 +61,8 @@ const AuthenticationForm: React.FC<Props> = ({ page, close }) => {
     const callback = async (response: ResponseType) => {
         setError('');
         setSuccess(response.message);
-        setStatus(response.status);
-        let time = 0
-        if (response.status)
-            time = 2000
-        else
-            time = 3000
-
-        await delay(time);
-
+        await delay(3000);
         setSuccess('');
-        setStatus(false);
         if (response.status && type === 'login') {
             setToken(response.token)
             close()
@@ -149,7 +138,7 @@ const AuthenticationForm: React.FC<Props> = ({ page, close }) => {
                             />
                     }
 
-                    {type === 'register' && (
+                    {type === 'register' ?
                         <>
                             <PasswordInput
                                 required
@@ -167,28 +156,29 @@ const AuthenticationForm: React.FC<Props> = ({ page, close }) => {
                                 onChange={(e) => form.setFieldValue('terms', e.currentTarget.checked)}
                             />
                         </>
-                    )}
-                    <Anchor
-                        fz={'xs'}
-                        w={'fit-content'}
-                        onClick={() => {
-                            form.setFieldError('email', /^\S+@\S+$/.test(form.values.email) ? null : 'Invalid email')
-                            if (/^\S+@\S+$/.test(form.values.email))
-                                reset_password(form.values.email, callback)
-                        }}
-                    >
-                        Forget Password
-                    </Anchor>
+                        :
+                        <Anchor
+                            fz={'xs'}
+                            w={'fit-content'}
+                            onClick={() => {
+                                form.setFieldError('email', /^\S+@\S+$/.test(form.values.email) ? null : 'Invalid email')
+                                if (/^\S+@\S+$/.test(form.values.email))
+                                    reset_password(form.values.email, callback)
+                            }}
+                        >
+                            Forget Password
+                        </Anchor>
+                    }
                     <Text
                         display={(error || success) ? 'block' : 'none'}
-                        c={status ? 'teal' : 'red'}
+                        c={error ? 'red' : (success ? 'teal' : 'black')}
                         fz={'sm'}
                     >
                         {error ? error : (success ? success : null)}
                     </Text>
                 </Stack>
 
-                <Group justify={'space-between'}>
+                <Group justify={'space-between'} mt={'sm'}>
                     <Anchor
                         component={'button'}
                         type={'button'}

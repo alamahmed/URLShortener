@@ -2,7 +2,15 @@ import { getshortenedURL } from '../../server.js'
 import { useState, useContext } from 'react'
 import { SessionContext } from '../../context/SessionContext.jsx'
 import { Container, Title, Button, Flex, Card, Text, CloseButton, Grid, Divider, Anchor } from '@mantine/core'
-import { IconLink, IconId, IconHeart, IconActivity, IconTimeline, IconUserPlus, IconDashboard } from '@tabler/icons-react'
+import {
+    IconLink,
+    IconHeart,
+    IconDashboard,
+    // IconActivity,
+    // IconId,
+    // IconTimeline,
+    // IconUserPlus,
+} from '@tabler/icons-react'
 import { Input } from '@mantine/core'
 import classes from './Home.module.css'
 
@@ -12,44 +20,44 @@ const benefits = [
         id: 1,
         icon: <IconLink />,
         heading: 'Custom Short Links',
-        description: 'Create Branded links that are easy to remember and pronounce'
+        description: 'Create links that are easy to remember and pronounce'
     },
     {
         id: 2,
-        icon: <IconId />,
-        heading: 'Branded links',
-        description: 'Create links with your own domain'
+        icon: <IconHeart />,
+        heading: 'Link retargeting',
+        description: 'Create free account to access and delete your previoiusly created links'
     },
     {
         id: 3,
-        icon: <IconHeart />,
-        heading: 'Link retargeting',
-        description: 'Add pixels from Facebook, Google, Linkedin, X, and more'
-    },
-    {
-        id: 4,
-        icon: <IconActivity />,
-        heading: 'Link health monitoring',
-        description: 'Set up automatic monitoring for broken links'
-    },
-    {
-        id: 5,
-        icon: <IconTimeline />,
-        heading: 'Custom splash pages',
-        description: 'Create a page that matches your brand'
-    },
-    {
-        id: 6,
-        icon: <IconUserPlus />,
-        heading: 'Team permissions',
-        description: 'Invite your team members to collaborate on your links'
-    },
-    {
-        id: 7,
         icon: <IconDashboard />,
         heading: 'Dashboard',
         description: 'Get access to your History of previously Created links'
     },
+    // {
+    //     id: 4,
+    //     icon: <IconTimeline />,
+    //     heading: 'Custom splash pages',
+    //     description: 'Create a page that matches your brand'
+    // },
+    // {
+    //     id: 5,
+    //     icon: <IconUserPlus />,
+    //     heading: 'Team permissions',
+    //     description: 'Invite your team members to collaborate on your links'
+    // },
+    // {
+    //     id: 6,
+    //     icon: <IconId />,
+    //     heading: 'Branded links',
+    //     description: 'Create links with your own domain'
+    // },
+    // {
+    //     id: 7,
+    //     icon: <IconActivity />,
+    //     heading: 'Link health monitoring',
+    //     description: 'Set up automatic monitoring for broken links'
+    // },
 ]
 
 const Home = () => {

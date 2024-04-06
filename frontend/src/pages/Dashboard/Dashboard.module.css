@@ -3,14 +3,6 @@
     z-index: 1;
 }
 
-.sidebar_bottom {
-    display: flex;
-    height: 60vh;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: flex-end;
-}
-
 .outlet_container {
     width: 100%;
     margin-left: 3.5vw;

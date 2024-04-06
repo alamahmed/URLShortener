@@ -9,6 +9,7 @@
 
 .button {
     border-radius: var(--mantine-radius-lg);
+    cursor: pointer;
     --button-hover: #4B1AFD;
 }
 
