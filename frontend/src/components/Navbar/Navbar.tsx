@@ -27,9 +27,9 @@ const Navbar = () => {
     const navigate = useNavigate()
 
     const data = [
-        { link: '/', name: 'Home' },
-        // { link: '/pricing', name: 'Pricing' },
-        { link: '/dashboard', name: 'Dashboard' },
+        { link: '/URLShortener/', name: 'Home' },
+        // { link: '/URLShortener/pricing', name: 'Pricing' },
+        { link: '/URLShortener/dashboard', name: 'Dashboard' },
     ]
 
     return (

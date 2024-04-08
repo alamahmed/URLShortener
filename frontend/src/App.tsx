@@ -18,7 +18,7 @@ const App = () => {
       <BrowserRouter>
         <Navbar />
         <Routes >
-          <Route path='/dashboard' element={<Dashboard />}>
+          <Route path='/URLShortener/dashboard' element={<Dashboard />}>
             <Route
               path=''
               element={
@@ -39,7 +39,7 @@ const App = () => {
             />
           </Route>
           <Route element={<Footer />}>
-            <Route path='/' element={<Home />} />
+            <Route path='/URLShortener/' element={<Home />} />
             {/* <Route path='/pricing' element={<Pricing />} /> */}
           </Route>
         </Routes>

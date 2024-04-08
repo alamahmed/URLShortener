@@ -1,7 +1,7 @@
 {
   "name": "frontend",
   "version": "0.1.0",
-  "homepage": "https://gitname.github.io/URLShortner",
+  "homepage": "https://alamahmed.github.io/",
   "private": true,
   "dependencies": {
     "@mantine/carousel": "^7.6.2",
