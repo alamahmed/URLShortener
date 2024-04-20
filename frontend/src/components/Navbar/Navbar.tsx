@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { SessionContext } from '../../context/SessionContext';
 import AuthenticationForm from '../AuthenticationForm/AuthenticationForm';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { useDisclosure } from '@mantine/hooks';
 import {
     Group,
@@ -27,79 +27,147 @@ const Navbar = () => {
     const navigate = useNavigate()
 
     const data = [
-        { link: '/URLShortener/', name: 'Home' },
-        // { link: '/URLShortener/pricing', name: 'Pricing' },
-        { link: '/URLShortener/dashboard', name: 'Dashboard' },
+        { link: '/', name: 'Home' },
+        // { link: '/pricing', name: 'Pricing' },
+        { link: '/dashboard', name: 'Dashboard' },
     ]
 
     return (
-        <Box className={classes.navContainer}>
-            <Modal
-                radius={'lg'}
-                opened={opened}
-                onClose={close}
-                title={'Authentication'}
-                centered
-            >
-                <AuthenticationForm page={page} close={close} />
-            </Modal>
-            <nav
-                className={classes.main_container}
-            >
-                <Container
-                    size={'xl'}
-                    py={'lg'}
+        <>
+            <Box className={classes.navContainer}>
+                <Modal
+                    radius={'lg'}
+                    opened={opened}
+                    onClose={close}
+                    title={'Authentication'}
+                    centered
                 >
-                    <header>
-                        <Group
-                            justify={'space-between'}
-                            h={'100%'}
-                        >
-                            <Link
-                                to='/'
-                                className={classes.link}
-                            >
-                                <Text
-                                    fw={800}
-                                    className={classes.text}
-                                >
-                                    URL Shortener
-                                </Text>
-                            </Link>
+                    <AuthenticationForm page={page} close={close} />
+                </Modal>
+                <nav
+                    className={classes.main_container}
+                >
+                    <Container
+                        size={'xl'}
+                        py={'lg'}
+                    >
+                        <header>
                             <Group
+                                justify={'space-between'}
                                 h={'100%'}
-                                gap={0}
-                                visibleFrom={'sm'}
                             >
-                                <Flex
-                                    direction={'row'}
-                                    align={'center'}
+                                <Link
+                                    to='/'
+                                    className={classes.link}
                                 >
-                                    {data.map((items) => {
-                                        return (
-                                            <Link
-                                                className={classes.link}
-                                                to={items.link}
-                                            >
-                                                <Text
-                                                    pr={'20px'}
-                                                    fw={500}
-                                                    className={classes.text}
+                                    <Text
+                                        fw={800}
+                                        className={classes.text}
+                                    >
+                                        URL Shortener
+                                    </Text>
+                                </Link>
+                                <Group
+                                    h={'100%'}
+                                    gap={0}
+                                    visibleFrom={'sm'}
+                                >
+                                    <Flex
+                                        direction={'row'}
+                                        align={'center'}
+                                    >
+                                        {data.map((items) => {
+                                            return (
+                                                <Link
+                                                    className={classes.link}
+                                                    to={items.link}
                                                 >
-                                                    {items.name}
-                                                </Text>
-                                            </Link>
+                                                    <Text
+                                                        pr={'20px'}
+                                                        fw={500}
+                                                        className={classes.text}
+                                                    >
+                                                        {items.name}
+                                                    </Text>
+                                                </Link>
 
-                                        );
-                                    })}
+                                            );
+                                        })}
+                                        <Button
+                                            mr={'20px'}
+                                            className={classes.button}
+                                            onClick={() => {
+                                                if (token) {
+                                                    setToken(null)
+                                                    navigate('/')
+                                                } else {
+                                                    changePage('register')
+                                                    open()
+                                                }
+                                            }}
+                                        >
+                                            {token === null ? 'Sign up' : 'Log out'}
+                                        </Button>
+                                        {
+                                            token === null ?
+                                                <Button
+                                                    onClick={() => {
+                                                        changePage('login')
+                                                        open()
+                                                    }}
+                                                    variant={'outline'}
+                                                    className={classes.button}
+                                                >
+                                                    Log in
+                                                </Button>
+                                                : null
+                                        }
+                                    </Flex>
+                                </Group>
+                                <Burger
+                                    opened={drawerOpened}
+                                    onClick={toggleDrawer}
+                                    hiddenFrom={'sm'}
+                                />
+                            </Group>
+                        </header>
+                        <Drawer
+                            opened={drawerOpened}
+                            onClose={closeDrawer}
+                            size={'100%'}
+                            padding={'md'}
+                            title={'URL Shortener'}
+                            hiddenFrom={'sm'}
+                            zIndex={1000000}
+                        >
+                            <Divider
+                                my={'sm'}
+                            />
+                            {data.map((items) => {
+                                return (
+                                    <Flex justify={'right'}>
+                                        <Link
+                                            to={items.link}
+                                            className={`${classes.link} ${classes.text}`}
+                                            onClick={() => { closeDrawer() }}
+                                        >
+                                            {items.name}
+                                        </Link>
+                                    </Flex>
+                                )
+                            })}
+                            <Divider my={'sm'} />
+                            <Flex justify={'right'}>
+                                <Stack>
                                     <Button
-                                        mr={'20px'}
                                         className={classes.button}
                                         onClick={() => {
                                             if (token) {
                                                 setToken(null)
                                                 navigate('/')
+                                                closeDrawer()
                                             } else {
+                                                closeDrawer()
                                                 changePage('register')
                                                 open()
                                             }
@@ -111,6 +179,7 @@ const Navbar = () => {
                                         token === null ?
                                             <Button
                                                 onClick={() => {
+                                                    closeDrawer()
                                                     changePage('login')
                                                     open()
                                                 }}
@@ -121,80 +190,14 @@ const Navbar = () => {
                                             </Button>
                                             : null
                                     }
-                                </Flex>
-                            </Group>
-                            <Burger
-                                opened={drawerOpened}
-                                onClick={toggleDrawer}
-                                hiddenFrom={'sm'}
-                            />
-                        </Group>
-                    </header>
-                    <Drawer
-                        opened={drawerOpened}
-                        onClose={closeDrawer}
-                        size={'100%'}
-                        padding={'md'}
-                        title={'URL Shortener'}
-                        hiddenFrom={'sm'}
-                        zIndex={1000000}
-                    >
-                        <Divider
-                            my={'sm'}
-                        />
-                        {data.map((items) => {
-                            return (
-                                <Flex justify={'right'}>
-                                    <Link
-                                        to={items.link}
-                                        className={`${classes.link} ${classes.text}`}
-                                        onClick={() => { closeDrawer() }}
-                                    >
-                                        {items.name}
-                                    </Link>
-                                </Flex>
-                            )
-                        })}
-                        <Divider my={'sm'} />
-                        <Flex justify={'right'}>
-                            <Stack>
-                                <Button
-                                    className={classes.button}
-                                    onClick={() => {
-                                        if (token) {
-                                            setToken(null)
-                                            navigate('/')
-                                            closeDrawer()
-                                        } else {
-                                            closeDrawer()
-                                            changePage('register')
-                                            open()
-                                        }
-                                    }}
-                                >
-                                    {token === null ? 'Sign up' : 'Log out'}
-                                </Button>
-                                {
-                                    token === null ?
-                                        <Button
-                                            onClick={() => {
-                                                closeDrawer()
-                                                changePage('login')
-                                                open()
-                                            }}
-                                            variant={'outline'}
-                                            className={classes.button}
-                                        >
-                                            Log in
-                                        </Button>
-                                        : null
-                                }
-                            </Stack>
-                        </Flex>
-                    </Drawer>
-                </Container>
-            </nav>
-        </Box >
+                                </Stack>
+                            </Flex>
+                        </Drawer>
+                    </Container>
+                </nav>
+            </Box >
+            <Outlet />
+        </>
     );
 }
 

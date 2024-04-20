@@ -1,5 +1,5 @@
-// const backendURL = 'http://localhost:8000/';
-const backendURL = 'https://short-fkjp.onrender.com/';
+const backendURL = 'http://localhost:8000/';
+// const backendURL = 'https://short-fkjp.onrender.com/';
 
 const getshortenedURL = (url, token, setLoading) => {
     const xhr = new XMLHttpRequest()

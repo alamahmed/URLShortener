@@ -188,10 +188,11 @@ const Profile = () => {
             <Text c={'dimmed'}>
                 You can Manage your profile here
             </Text>
-            <Section heading={'Profile'} onClick={open}>
+            <Section heading={'Profile'} onClick={() => { }}>
                 <Avatar
                     variant={'transparent'}
                     size={'lg'}
+                    bg={'var(--mantine-color-gray-2)'}
                 >
                     {getModifiedLabel(user.username)}
                 </Avatar>
@@ -200,7 +201,7 @@ const Profile = () => {
                 </Text>
             </Section>
 
-            <Section heading={'User'} onClick={() => { }}>
+            <Section heading={'User'} onClick={open}>
                 <Text c={'black'}>
                     {user.username}
                 </Text>

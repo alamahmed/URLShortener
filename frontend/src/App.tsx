@@ -16,32 +16,38 @@ const App = () => {
   return (
     <UserProvider>
       <BrowserRouter>
-        <Navbar />
+
         <Routes >
-          <Route path='/URLShortener/dashboard' element={<Dashboard />}>
-            <Route
-              path=''
-              element={
-                <Overview />
-              }
-            />
-            <Route
-              path='profile'
-              element={
-                <Profile />
-              }
-            />
-            <Route
-              path='security'
-              element={
-                <Security />
-              }
-            />
+          <Route element={<Navbar />}>
+            <Route path='/dashboard' element={<Dashboard />}>
+              <Route
+                path=''
+                element={
+                  <Overview />
+                }
+              />
+              <Route
+                path='profile'
+                element={
+                  <Profile />
+                }
+              />
+              <Route
+                path='security'
+                element={
+                  <Security />
+                }
+              />
+            </Route>
+            <Route element={<Footer />}>
+              <Route path='/' element={<Home />} />
+              {/* <Route path='/pricing' element={<Pricing />} /> */}
+            </Route>
           </Route>
-          <Route element={<Footer />}>
-            <Route path='/URLShortener/' element={<Home />} />
-            {/* <Route path='/pricing' element={<Pricing />} /> */}
+          <Route path="*" element={<div>404</div>}>
+
           </Route>
+
         </Routes>
       </BrowserRouter >
     </UserProvider>
