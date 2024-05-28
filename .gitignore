@@ -7,7 +7,10 @@
 .pnp.js
 /Backend/urlshortner.json
 /Backend/__pycache__
+/Backend/.env
+/Backend/urlshortner.json
 /Backend/config.py
+/Backend/venv
 /__pycache__
 /Backend/venv
 /venv
