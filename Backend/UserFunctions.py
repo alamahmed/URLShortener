@@ -1,9 +1,16 @@
 import requests
-from config import Api_key
 import hashlib
 from google.cloud.firestore_v1 import FieldFilter
 from firebase_init import default_app
 from firebase_admin import firestore, auth, exceptions
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Access the environment variables
+Api_key = os.getenv("API_KEY")
 
 db = firestore.client( app = default_app )
 

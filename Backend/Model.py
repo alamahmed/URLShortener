@@ -14,10 +14,10 @@ class Url( BaseModel ):
     token: str
 
 class Id_token( BaseModel ):
-    token: str | None = None
+    token: str
 
 class User_id( BaseModel ):
-    uid: str | None = None
+    uid: str
 
 class User_name( BaseModel ):
     username: str
