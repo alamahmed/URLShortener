@@ -1,4 +1,5 @@
-const backendURL = 'http://localhost:8000/';
+// const backendURL = 'http://localhost:8000/';
+const backendURL = 'https://short-6fey27jzj-alamahmeds-projects.vercel.app/docs';
 
 const getshortenedURL = (url, token, setLoading) => {
     const xhr = new XMLHttpRequest()

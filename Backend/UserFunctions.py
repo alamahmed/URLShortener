@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Access the environment variables
-Api_key = os.getenv("API_KEY")
+Api_key = os.environ.get("API_KEY")
 
 db = firestore.client( app = default_app )
 
