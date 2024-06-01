@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
 import { SessionContext } from '../../context/SessionContext';
-import { Anchor, Button, CloseButton, Container, Flex, Grid, Input, Modal, Notification, Title } from '@mantine/core'
+import { Anchor, Button, CloseButton, Container, Flex, Input, Modal, Notification, Title } from '@mantine/core'
 import { Table, Group, Text, ActionIcon } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { IconCopy, IconPencil, IconSearch, IconTrash } from '@tabler/icons-react';
+import { IconCopy, IconSearch, IconTrash } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 import { get_data, delete_url } from '../../server';
 import classes from './Overview.module.css'

@@ -1,5 +1,4 @@
 import { Flex, Title } from '@mantine/core'
-import { AreaChart } from '@mantine/charts'
 import classes from './UnauthorizedPage.module.css'
 
 const UnauthorizedPage = () => {
