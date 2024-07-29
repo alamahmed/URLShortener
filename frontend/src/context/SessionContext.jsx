@@ -4,6 +4,7 @@ export const SessionContext = createContext()
 
 export const SessionProvider = (props) => {
     const [token, setToken] = useState(localStorage.getItem('userToken'));
+    const backendURL = process.env.REACT_APP_BACKEND_URL;
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -19,7 +20,7 @@ export const SessionProvider = (props) => {
                 };
 
                 try {
-                    const response = await fetch('http://127.0.0.1:8000/verify_token', requestOptions);
+                    const response = await fetch(backendURL+'verify_token', requestOptions);
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }

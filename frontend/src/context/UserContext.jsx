@@ -7,6 +7,7 @@ export const UserProvider = (props) => {
     const [token] = useContext(SessionContext)
     const [user, setUser] = useState(localStorage.getItem('user') | { uid: '', username: '', email: '' })
 
+    const backendURL = process.env.REACT_APP_BACKEND_URL;
     useEffect(() => {
         const getData = async () => {
             const requestOptions = {
@@ -18,7 +19,7 @@ export const UserProvider = (props) => {
             };
 
             try {
-                const response = await fetch('http://127.0.0.1:8000/get_user', requestOptions);
+                const response = await fetch(backendURL + 'get_user', requestOptions);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
