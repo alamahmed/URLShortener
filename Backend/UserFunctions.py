@@ -20,8 +20,8 @@ def hashGen( url ):
     hashedURL = hashedURL.hexdigest()
     return hashedURL
 
-# backend_url = 'https://short-fkjp.onrender.com/'
-backend_url = 'http://127.0.0.1:8000/'
+# backend_url = 'http://127.0.0.1:8000/'
+backend_url = 'https://url-shortener-282w.vercel.app/'
 password_reset_API = 'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key='
 get_user_data_API = 'https://identitytoolkit.googleapis.com/v1/accounts:lookup?key='
 change_password = 'https://identitytoolkit.googleapis.com/v1/accounts:update?key='
